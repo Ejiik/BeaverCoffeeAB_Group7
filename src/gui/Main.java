@@ -22,6 +22,7 @@ public class Main extends Application {
 		}
 	}
 	
+	//vafan nu då
 	public static void main(String[] args) {
 		launch(args);
 	}
