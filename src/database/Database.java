@@ -21,6 +21,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-
-	//helloo
+	MongoClient mongoClient;
+	MongoDatabase db;
+	
+	public Database(){
+		mongoClient = MongoClients.create();
+		db = mongoClient.getDatabase("beaverCoffee");
+	}
+	
+	/**
+	 * Accesses a collection, or creates a new one if it doesn't exist.
+	 * @param coll - Name of collection
+	 */
+	public MongoCollection<Document> collection(String coll){
+		MongoCollection<Document> collection = db.getCollection(coll);
+		
+		return collection;
+	}
+	
+	/**
+	 * Inserts document into a collection
+	 * @param doc
+	 * @param coll
+	 */
+	public void insertDoc(Document doc, MongoCollection<Document> coll){
+		coll.insertOne(doc);
+	}
 }
