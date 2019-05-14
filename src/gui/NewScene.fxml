@@ -5,12 +5,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="286.0" prefWidth="427.0" 
+<AnchorPane 
+	prefHeight="286.0" 
+	prefWidth="427.0" 
+	xmlns="http://javafx.com/javafx/8" 
 	xmlns:fx="http://javafx.com/fxml/1" 
-	xmlns="http://javafx.com/javafx/8"
 	fx:controller="controller.Communication">
    <children>
-      <Button fx:id="btnNew" layoutX="104.0" layoutY="69.0" mnemonicParsing="false" text="En knapp" />
+      <Button 
+      	fx:id="btnNew" 
+      	layoutX="104.0" 
+      	layoutY="69.0" 
+      	mnemonicParsing="false" 
+      	onAction="#print" 
+      	text="En knapp" />
    </children>
 </AnchorPane>
