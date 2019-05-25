@@ -5,15 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	Scene scene;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("NewScene.fxml"));
-			Scene scene = new Scene(root);
+			Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
+			scene = new Scene(root);
 			primaryStage.setTitle("BeaverCoffee AB");
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -22,7 +25,6 @@ public class Main extends Application {
 		}
 	}
 	
-	//vafan nu då
 	public static void main(String[] args) {
 		launch(args);
 	}
