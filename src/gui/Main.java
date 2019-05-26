@@ -17,6 +17,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
 			scene = new Scene(root);
+			primaryStage.setResizable(false);
 			primaryStage.setTitle("BeaverCoffee AB");
 			primaryStage.setScene(scene);
 			primaryStage.show();

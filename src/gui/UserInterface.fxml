@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="481.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Communication">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Communication">
    <children>
       <Button fx:id="btnRunCmd" layoutX="379.0" layoutY="228.0" mnemonicParsing="false" onAction="#decodeCommand" text="Enter" />
       <Label fx:id="lblCmd" layoutX="14.0" layoutY="162.0" prefHeight="17.0" prefWidth="100.0" text="Command:" />
