@@ -413,17 +413,13 @@ public class Communication implements Initializable {
 		String price = priceIn;
 		int res;
 		if(price.contains(".")){
-			System.out.println("There's a dot!");
 			String[] tempArr = price.split("\\.");
 			if(tempArr[1].length() == 1){
-				System.out.println("One decimal!");
 				price = tempArr[0] + tempArr[1];
 				price.concat("0");
 			}else if(tempArr[1].length() >2){
-				System.out.println("There's more than 2 decimals!");
 				int tempInt = Integer.parseInt(tempArr[1].substring(0, 2));
 				if(Character.getNumericValue(tempArr[1].charAt(2)) > 4){
-					System.out.println("Round up! " + Character.getNumericValue(tempArr[1].charAt(2)));
 					tempInt++;
 				}
 				price = tempArr[0] + tempInt;
@@ -431,10 +427,8 @@ public class Communication implements Initializable {
 				price = tempArr[0] + tempArr[1];
 			}
 		}else{
-			System.out.println("No dot!");
 			price.concat("00");
 		}
-		System.out.println(price);
 		res = Integer.parseInt(price);
 		return res;
 	}
