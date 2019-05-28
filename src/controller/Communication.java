@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -68,7 +69,8 @@ public class Communication implements Initializable {
 	TextField fieldNumeric;
 	@FXML
 	CheckBox checkBox0;
-	
+	@FXML
+	ChoiceBox<String> cbProducts;
 	
 	Database db = new Database();
 	
@@ -200,31 +202,28 @@ public class Communication implements Initializable {
 						List<Product> products = new ArrayList<>();
 						int total = 0;
 						
-						MongoCursor<Product> cursor = db.getProducts().find().iterator();
-						try{
-							while(cursor.hasNext()){
-								Product prod = cursor.next();
-									for(int i=0;i<productNames.length;i++){
-										if(prod.getName() == productNames[i]){
-											if(prod.getInStock()){
-												products.add(prod);
-												total += prod.getPrice();
+						List<Product> prods = db.getProducts();
+						
+						for(int i = 0;i<prods.size();i++){
+								for(int j=0;j<productNames.length;j++){
+									if(prods.get(i).getName() == productNames[j]){
+										if(prods.get(i).getInStock()){
+											products.add(prods.get(i));
+											total += prods.get(i).getPrice();
+										}else{
+											if(acceptableResult){
+												acceptableResult = false;
+											}
+											if(txtAreaInfo.getText().isEmpty()){
+												txtAreaInfo.setText("Product(s) out of stock: \n" + prods.get(i).getName() + "\n");
 											}else{
-												if(acceptableResult){
-													acceptableResult = false;
-												}
-												if(txtAreaInfo.getText().isEmpty()){
-													txtAreaInfo.setText("Product(s) out of stock: \n" + prod.getName() + "\n");
-												}else{
-													txtAreaInfo.appendText(prod.getName() + "\n");
-												}
+												txtAreaInfo.appendText(prods.get(i).getName() + "\n");
 											}
 										}
 									}
+								}
 							}
-						} finally{
-							cursor.close();
-						}
+						
 						doc.append("orderID", field0.getText().substring(0, 3) + formdDate.substring(4));
 						doc.append("date", formdDate);
 						doc.append("total", total);
@@ -394,6 +393,7 @@ public class Communication implements Initializable {
 		field6.setVisible(false);
 		fieldBig.setVisible(false);
 		checkBox0.setVisible(false);
+		cbProducts.setVisible(false);
 		field0.clear();
 		field1.clear();
 		field2.clear();
@@ -501,11 +501,20 @@ public class Communication implements Initializable {
 				field0.setVisible(true);
 				field1.setVisible(true);
 				fieldBig.setVisible(true);
+				cbProducts.setVisible(true);
 				field0.setPromptText("cashier ID*");
 				field1.setPromptText("customer ID");
 				fieldBig.setPromptText("products*");
 				fieldBig.setPrefHeight(86);
 				fieldBig.setLayoutY(66);
+				List<Product> prods = db.getProducts();
+				ArrayList<String> prodNames = new ArrayList<String>();
+				System.out.println(prods.get(0).getName());
+				for(int i=0;i<prods.size();i++){
+					prodNames.add(prods.get(i).getName());
+					System.out.println("Found: " + prods.get(i).getName() + ", Added: " + prodNames.get(i));
+				}
+				cbProducts.setItems(FXCollections.observableArrayList(prodNames));
 				break;
 			case"customer":
 				field0.setVisible(true);
@@ -557,6 +566,13 @@ public class Communication implements Initializable {
 		}
 	}
 	
+	public void addProduct(){
+		
+	}
+	public void removeProduct(){
+		
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -574,6 +590,7 @@ public class Communication implements Initializable {
                 }
             }
         });
+		
 		cbAction.getSelectionModel().select(0);
 		cbAction.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 

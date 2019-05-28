@@ -6,7 +6,6 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 public final class Product{
-	
 	private ObjectId id;
 	private String productID;
 	private String type;
@@ -15,6 +14,16 @@ public final class Product{
 	private List<String> ingredients;
 	private int units;
 	private boolean inStock;
+	
+	public Product(String type, String name, int price, List<String> ingredients, int units, boolean inStock) {
+		super();
+		this.type = type;
+		this.name = name;
+		this.price = price;
+		this.ingredients = ingredients;
+		this.units = units;
+		this.inStock = inStock;
+	}
 	
 	public Product(){
 		
