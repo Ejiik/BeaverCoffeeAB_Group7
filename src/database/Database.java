@@ -62,11 +62,19 @@ public class Database {
 //		
 //		return products;
 //	}
-	public MongoCollection<Product> getProducts(){
+	public List<Product> getProducts(){
 		MongoCollection<Product> products = db.getCollection("product", Product.class);
 		List<Product> res = new ArrayList<>();
+		MongoCursor<Product> cursor = products.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
+		}
 		
-		return products;
+		return res;
 	}
 	
 	public void updateDoc(String collection, String keyID, String keyValue, String property, String newValue, boolean all){

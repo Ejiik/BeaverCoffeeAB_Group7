@@ -27,5 +27,8 @@
       <TextField fx:id="fieldNumeric" layoutX="154.0" layoutY="97.0" prefHeight="25.0" prefWidth="129.0" />
       <Button fx:id="btnCmd" layoutX="381.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleCmdPrompt" prefHeight="25.0" prefWidth="44.0" text="Cmd" />
       <CheckBox fx:id="checkBox0" layoutX="294.0" layoutY="70.0" mnemonicParsing="false" text="Update all matches" />
+      <ChoiceBox fx:id="cbProducts" layoutX="154.0" layoutY="97.0" prefHeight="25.0" prefWidth="91.0" />
+      <Button fx:id="btnAddProd" layoutX="245.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="+" />
+      <Button fx:id="btnRemoveProd" layoutX="273.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="-" />
    </children>
 </AnchorPane>
