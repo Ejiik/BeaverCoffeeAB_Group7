@@ -69,8 +69,13 @@ public final class Product{
 	public int getUnits(){
 		return units;
 	}
+	
+	/**
+	 * Adds the specified amount of units to the product type.
+	 * @param units
+	 */
 	public void setUnits(int units){
-		this.units=units;
+		this.units+=units;
 	}
 	public boolean getInStock(){
 		return inStock;
