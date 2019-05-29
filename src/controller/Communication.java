@@ -71,6 +71,12 @@ public class Communication implements Initializable {
 	CheckBox checkBox0;
 	@FXML
 	ChoiceBox<String> cbProducts;
+	@FXML
+	Button btnAddProd;
+	@FXML
+	Button btnRemoveProd;
+	
+	List<Product> products = new ArrayList<Product>();
 	
 	Database db = new Database();
 	
@@ -394,6 +400,8 @@ public class Communication implements Initializable {
 		fieldBig.setVisible(false);
 		checkBox0.setVisible(false);
 		cbProducts.setVisible(false);
+		btnAddProd.setVisible(false);
+		btnRemoveProd.setVisible(false);
 		field0.clear();
 		field1.clear();
 		field2.clear();
@@ -502,6 +510,8 @@ public class Communication implements Initializable {
 				field1.setVisible(true);
 				fieldBig.setVisible(true);
 				cbProducts.setVisible(true);
+				btnAddProd.setVisible(true);
+				btnRemoveProd.setVisible(true);
 				field0.setPromptText("cashier ID*");
 				field1.setPromptText("customer ID");
 				fieldBig.setPromptText("products*");
@@ -567,10 +577,21 @@ public class Communication implements Initializable {
 	}
 	
 	public void addProduct(){
-		
+		products = db.getProducts();
+		String prodChoice = cbProducts.getSelectionModel().selectedItemProperty().getName();
+		Product product = new Product();
+		for(int i=0;i<products.size();i++){
+			if(products.get(i).getName().equals(prodChoice)){
+				product = products.get(i);
+			}
+		}
+		if(product.getInStock()){
+			fieldBig.appendText(product.getName() + "\n");
+		}
 	}
 	public void removeProduct(){
-		
+		String prodChoice = cbProducts.getSelectionModel().selectedItemProperty().getName();
+		fieldBig.getText().replace(prodChoice + "\n", "");
 	}
 	
 	@Override

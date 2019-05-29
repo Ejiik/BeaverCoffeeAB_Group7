@@ -102,7 +102,13 @@ public class Database {
 			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
 		}
 	}
-	/**
+	
+	public void updateProduct(Product product){
+		MongoCollection<Product> coll = db.getCollection("product", Product.class);
+		
+	}
+	
+	/**	
 	 * Inserts document into a collection
 	 * @param doc
 	 * @param coll
@@ -112,8 +118,26 @@ public class Database {
 		coll.insertOne(doc);
 	}
 	
-	public void insertProduct(Product product){
+	public int insertProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
+		MongoCursor<Product> cursor = coll.find().iterator();
+		
+		try{
+			while(cursor.hasNext()){
+				Product prod = cursor.next();
+				if(prod.getName().equals(product.getName())){
+					prod.setUnits(product.getUnits());
+					if(prod.getUnits() > 0){
+						prod.setInStock(true);
+					}
+					return 1;
+				}
+			}
+		}finally{
+			cursor.close();
+		}
+		
 		coll.insertOne(product);
+		return 0;
 	}
 }
