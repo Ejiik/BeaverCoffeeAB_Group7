@@ -5,30 +5,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Communication">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="492.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Communication">
    <children>
-      <Button fx:id="btnRunCmd" layoutX="379.0" layoutY="228.0" mnemonicParsing="false" onAction="#decodeCommand" text="Enter" />
+      <Button fx:id="btnRunCmd" layoutX="420.0" layoutY="226.0" mnemonicParsing="false" onAction="#decodeCommand" text="Enter" />
       <Label fx:id="lblCmd" layoutX="14.0" layoutY="162.0" prefHeight="17.0" prefWidth="100.0" text="Command:" />
       <Label layoutX="16.0" layoutY="241.0" prefHeight="17.0" prefWidth="47.0" text="info" />
-      <TextArea fx:id="txtAreaInfo" editable="false" layoutX="16.0" layoutY="258.0" prefHeight="200.0" prefWidth="409.0" wrapText="true" />
-      <TextArea fx:id="txtAreaQuery" layoutX="14.0" layoutY="179.0" prefHeight="42.0" prefWidth="409.0" promptText="Enter a command" />
+      <TextArea fx:id="txtAreaInfo" editable="false" layoutX="16.0" layoutY="258.0" prefHeight="267.0" prefWidth="461.0" wrapText="true" />
+      <TextArea fx:id="txtAreaQuery" layoutX="14.0" layoutY="179.0" prefHeight="42.0" prefWidth="461.0" promptText="Enter a command" />
       <ChoiceBox fx:id="cbAction" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="74.0" />
       <ChoiceBox fx:id="cbCollection" layoutX="97.0" layoutY="34.0" prefHeight="25.0" prefWidth="100.0" />
       <Label layoutX="14.0" layoutY="14.0" text="Action" />
       <Label layoutX="97.0" layoutY="14.0" text="Collection" />
       <TextField fx:id="field0" layoutX="14.0" layoutY="66.0" prefHeight="25.0" prefWidth="129.0" />
-      <TextField fx:id="field1" layoutX="154.0" layoutY="66.0" prefHeight="25.0" prefWidth="129.0" />
-      <TextField fx:id="field2" layoutX="294.0" layoutY="66.0" prefHeight="25.0" prefWidth="129.0" />
+      <TextField fx:id="field1" layoutX="154.0" layoutY="66.0" prefHeight="31.0" prefWidth="155.0" />
+      <TextField fx:id="field2" layoutX="320.0" layoutY="66.0" prefHeight="31.0" prefWidth="155.0" />
       <TextField fx:id="field5" layoutX="14.0" layoutY="128.0" prefHeight="25.0" prefWidth="129.0" />
       <TextField fx:id="field4" layoutX="154.0" layoutY="97.0" prefHeight="25.0" prefWidth="129.0" />
       <TextField fx:id="field3" layoutX="14.0" layoutY="97.0" prefHeight="25.0" prefWidth="129.0" />
-      <TextField fx:id="field6" layoutX="154.0" layoutY="128.0" prefHeight="25.0" prefWidth="129.0" />
-      <TextArea fx:id="fieldBig" layoutX="294.0" layoutY="97.0" prefHeight="56.0" prefWidth="129.0" wrapText="true" />
-      <TextField fx:id="fieldNumeric" layoutX="154.0" layoutY="97.0" prefHeight="25.0" prefWidth="129.0" />
+      <TextField fx:id="field6" layoutX="154.0" layoutY="128.0" prefHeight="31.0" prefWidth="155.0" />
+      <TextArea fx:id="fieldBig" layoutX="320.0" layoutY="116.0" prefHeight="56.0" prefWidth="155.0" wrapText="true" />
+      <TextField fx:id="fieldNumeric" layoutX="154.0" layoutY="97.0" prefHeight="31.0" prefWidth="155.0" />
       <Button fx:id="btnCmd" layoutX="381.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleCmdPrompt" prefHeight="25.0" prefWidth="44.0" text="Cmd" />
-      <CheckBox fx:id="checkBox0" layoutX="294.0" layoutY="70.0" mnemonicParsing="false" text="Update all matches" />
-      <ChoiceBox fx:id="cbProducts" layoutX="154.0" layoutY="97.0" prefHeight="25.0" prefWidth="91.0" />
-      <Button fx:id="btnAddProd" layoutX="204.0" layoutY="128.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="31.0" prefWidth="36.0" text="+" />
-      <Button fx:id="btnRemoveProd" layoutX="257.0" layoutY="128.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="31.0" prefWidth="36.0" text="-" />
+      <CheckBox fx:id="checkBox0" layoutX="320.0" layoutY="71.0" mnemonicParsing="false" text="Update all matches" />
+      <ChoiceBox fx:id="cbProducts" layoutX="154.0" layoutY="97.0" prefHeight="31.0" prefWidth="129.0" />
+      <Button fx:id="btnAddProd" layoutX="237.0" layoutY="128.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="31.0" prefWidth="36.0" text="+" />
+      <Button fx:id="btnRemoveProd" layoutX="273.0" layoutY="128.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="31.0" prefWidth="36.0" text="-" />
    </children>
 </AnchorPane>
