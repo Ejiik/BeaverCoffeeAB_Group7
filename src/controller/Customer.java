@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Date;
+import java.util.List;
 
 public class Customer {
 	private String customerID;
@@ -8,11 +9,11 @@ public class Customer {
 	private String name;
 	private String occupation;
 	private String persNbr;
-	private String[] location;
+	private List<String> location;
 	private String country;
 	private ClubCard clubCard;
 	
-	public Customer(String customerID, String name, String occupation, String persNbr, String[] location,
+	public Customer(String customerID, String name, String occupation, String persNbr, List<String> location,
 			ClubCard clubCard) {
 		super();
 		this.customerID = customerID;
@@ -57,10 +58,10 @@ public class Customer {
 	public void setPersNbr(String persNbr) {
 		this.persNbr = persNbr;
 	}
-	public String[] getLocation() {
+	public List<String> getLocation() {
 		return location;
 	}
-	public void setLocation(String[] location) {
+	public void setLocation(List<String> location) {
 		this.location = location;
 	}
 	public ClubCard getClubCard() {
