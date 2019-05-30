@@ -1,9 +1,12 @@
 package controller;
 
+import java.util.List;
+
 public class Employer {
 	private String name;
 	private String employerID;
 	private String persNbr;
+	private List<Comment> comments;
 	
 	public Employer(String name, String employerID, String persNbr) {
 		super();
@@ -33,5 +36,9 @@ public class Employer {
 	}
 	public void setPersNbr(String persNbr) {
 		this.persNbr = persNbr;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
 	}
 }

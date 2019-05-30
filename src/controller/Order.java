@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
 	private String orderID;
-	private Date date;
+	private String date;
 	private int total;
 	private String customer;
 	private String cashier;
@@ -30,10 +30,10 @@ public class Order {
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getTotal() {

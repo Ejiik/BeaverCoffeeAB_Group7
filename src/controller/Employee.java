@@ -5,18 +5,22 @@ import java.util.List;
 
 public class Employee {
 	private String name;
-	private int persNbr;
+	private String persNbr;
 	private String employeeID;
 	private String[] location;
 	private String position;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private List<Comment> comments;
 	
 	public Employee(String name, int persNbr, String employeeID, String[] location, String position, Date startDate, Date endDate){
 		
 	}
 
+	public Employee(){
+		
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -25,11 +29,11 @@ public class Employee {
 		this.name = name;
 	}
 
-	public int getPersNbr() {
+	public String getPersNbr() {
 		return persNbr;
 	}
 
-	public void setPersNbr(int persNbr) {
+	public void setPersNbr(String persNbr) {
 		this.persNbr = persNbr;
 	}
 
@@ -57,19 +61,19 @@ public class Employee {
 		this.position = position;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

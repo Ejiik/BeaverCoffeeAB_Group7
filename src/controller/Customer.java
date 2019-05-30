@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class Customer {
 	private String customerID;
-	private Date registrationDate;
+	private String registrationDate;
 	private String name;
 	private String occupation;
-	private int persNbr;
+	private String persNbr;
 	private String[] location;
+	private String country;
 	private ClubCard clubCard;
 	
-	public Customer(String customerID, String name, String occupation, int persNbr, String[] location,
+	public Customer(String customerID, String name, String occupation, String persNbr, String[] location,
 			ClubCard clubCard) {
 		super();
 		this.customerID = customerID;
@@ -32,10 +33,10 @@ public class Customer {
 	public void setCustomerID(String customerID) {
 		this.customerID = customerID;
 	}
-	public Date getRegistrationDate() {
+	public String getRegistrationDate() {
 		return registrationDate;
 	}
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(String registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 	public String getName() {
@@ -50,10 +51,10 @@ public class Customer {
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
-	public int getPersNbr() {
+	public String getPersNbr() {
 		return persNbr;
 	}
-	public void setPersNbr(int persNbr) {
+	public void setPersNbr(String persNbr) {
 		this.persNbr = persNbr;
 	}
 	public String[] getLocation() {
@@ -67,5 +68,13 @@ public class Customer {
 	}
 	public void setClubCard(ClubCard clubCard) {
 		this.clubCard = clubCard;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }
