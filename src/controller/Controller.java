@@ -16,6 +16,7 @@ import database.Database;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
@@ -410,7 +412,16 @@ public class Controller implements Initializable {
 		TableColumn ingredients = new TableColumn("Ingredients");
 		
 		menu_table_view.getColumns().addAll(id,name,type,price,units,ingredients);
-		
+				
+		ObservableList<Product> data = FXCollections.observableArrayList(db.getProducts());
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+		type.setCellValueFactory(new PropertyValueFactory<Product,String>("type"));
+		price.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
+		units.setCellValueFactory(new PropertyValueFactory<Product,String>("units"));
+		ingredients.setCellValueFactory(new PropertyValueFactory<Product,String>("ingredients"));
+
+		menu_table_view.setItems(data);
 	}
 	
 	@Override
