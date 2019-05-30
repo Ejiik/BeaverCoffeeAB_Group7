@@ -26,6 +26,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -90,6 +92,8 @@ public class Controller implements Initializable {
 	private ChoiceBox<String> input_comment_employee;
 	@FXML
 	private TextArea input_comment_comment;
+	@FXML
+	private TableView menu_table_view;
 	
 	public Controller() {
 		
@@ -359,7 +363,56 @@ public class Controller implements Initializable {
 			((Stage)input_comment_employer.getScene().getWindow()).close();
 		}
 	}
+	
+	public void ShowOrderCollection() {
+		System.out.println("Show Order Collection");
+		
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+		
+		TableColumn id = new TableColumn("ID");
+		TableColumn cashierID = new TableColumn("CashierID");
+		TableColumn customerID = new TableColumn("CustomerID");
+		TableColumn product = new TableColumn("Product(s)");
+		TableColumn date = new TableColumn("Date");
+		
+		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date);
+		
+	}
 
+	public void ShowEmployeeCollection() {
+		System.out.println("Show Employee Collection");
+		
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+		
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		TableColumn position = new TableColumn("Position");
+		TableColumn address = new TableColumn("Address");
+		TableColumn zipcode = new TableColumn("Zip-Code");
+		TableColumn country = new TableColumn("Country");
+		
+		menu_table_view.getColumns().addAll(id,name,position,address,zipcode,country);
+	}
+	
+	public void ShowProductCollection() {
+		System.out.println("Show Product Collection");
+		
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+		
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		TableColumn type = new TableColumn("Type");
+		TableColumn price = new TableColumn("Price");
+		TableColumn units = new TableColumn("Units");
+		TableColumn ingredients = new TableColumn("Ingredients");
+		
+		menu_table_view.getColumns().addAll(id,name,type,price,units,ingredients);
+		
+	}
+	
 	@Override
 	public void initialize(URL path, ResourceBundle arg1) {
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
