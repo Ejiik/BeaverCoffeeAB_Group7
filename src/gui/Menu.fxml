@@ -14,17 +14,19 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button fx:id="btn_show_orders" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Orders" />
-      <Button fx:id="btn_show_employees" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="Show Employees" />
-      <Button fx:id="btn_show_products" layoutX="14.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Products" />
-      <Button fx:id="btn_add_product_window" layoutX="314.0" layoutY="75.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Product" />
-      <Button fx:id="btn_add_customer_window" layoutX="314.0" layoutY="109.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Customer" />
-      <Button fx:id="btn_add_order_window" layoutX="434.0" layoutY="109.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Order" />
-      <Button fx:id="btn_add_employee_window" layoutX="434.0" layoutY="74.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Employee" />
+      <Button fx:id="btn_show_orders" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Orders" />
+      <Button fx:id="btn_show_employees" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" text="Show Employees" />
+      <Button fx:id="btn_show_products" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Products" />
+      <Button fx:id="btn_add_product_window" layoutX="316.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Product" />
+      <Button fx:id="btn_add_customer_window" layoutX="316.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Customer" />
+      <Button fx:id="btn_add_order_window" layoutX="432.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Order" />
+      <Button fx:id="btn_add_employee_window" layoutX="432.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Employee" />
       <Text layoutX="140.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BeaverCoffee AB">
          <font>
             <Font name="Lucida Calligraphy Italic" size="27.0" />
          </font>
       </Text>
+      <Button fx:id="Add" layoutX="316.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Comment" />
+      <Button fx:id="ShowAddEmployer" layoutX="432.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Employer" />
    </children>
 </AnchorPane>
