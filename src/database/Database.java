@@ -15,6 +15,12 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
+
+import controller.Comment;
+import controller.Customer;
+import controller.Employee;
+import controller.Employer;
+import controller.Order;
 import controller.Product;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -153,6 +159,76 @@ public class Database {
 		}
 		
 		coll.insertOne(product);
+		return 0;
+	}
+	
+	public int insertComment(Comment comment){
+		MongoCollection<Comment> coll = db.getCollection("comment", Comment.class);
+		MongoCursor<Comment> cursor = coll.find().iterator();
+		
+		try{
+			while(cursor.hasNext()){
+				Comment com = cursor.next();
+			}
+		}finally{
+			cursor.close();
+		}
+		return 0;
+	}
+	
+	public int insertCustomer(Customer customer){
+		MongoCollection<Customer> coll = db.getCollection("customer", Customer.class);
+		MongoCursor<Customer> cursor = coll.find().iterator();
+
+		try{
+			while(cursor.hasNext()){
+				Customer cust = cursor.next();
+			}
+		}finally{
+			cursor.close();
+		}
+		return 0;
+	}
+	
+	public int insertEmployee(Employee employee){
+		MongoCollection<Employee> coll = db.getCollection("employee", Employee.class);
+		MongoCursor<Employee> cursor = coll.find().iterator();
+
+		try{
+			while(cursor.hasNext()){
+				Employee empl = cursor.next();
+			}
+		}finally{
+			cursor.close();
+		}
+		return 0;
+	}
+	
+	public int insertEmployer(Employer employer){
+		MongoCollection<Employer> coll = db.getCollection("employer", Employer.class);
+		MongoCursor<Employer> cursor = coll.find().iterator();
+
+		try{
+			while(cursor.hasNext()){
+				Employer emplr = cursor.next();
+			}
+		}finally{
+			cursor.close();
+		}
+		return 0;
+	}
+	
+	public int insertOrder(Order order){
+		MongoCollection<Order> coll = db.getCollection("order", Order.class);
+		MongoCursor<Order> cursor = coll.find().iterator();
+
+		try{
+			while(cursor.hasNext()){
+				Order ordr = cursor.next();
+			}
+		}finally{
+			cursor.close();
+		}
 		return 0;
 	}
 }
