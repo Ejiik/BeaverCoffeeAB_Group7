@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <Text layoutX="41.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee:" />
       <Text layoutX="41.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employer" />

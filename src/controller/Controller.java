@@ -1,20 +1,25 @@
 package controller;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import database.Database;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,7 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class Controller {
+public class Controller implements Initializable {
 
 	Database db = new Database();
 	
@@ -93,26 +98,39 @@ public class Controller {
 	public void ShowNewScene(ActionEvent event) throws IOException {
 		String source = ((Button)event.getSource()).getText();
 		System.out.println(source + " Window");
+		FXMLLoader loader;
 		
 		Parent root = null;
 		
 		if(source.equals("Add Product")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddProductWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddProductWindow.fxml"));
+			loader.setController(this);
+			root = loader.load();
 		}
 		else if(source.equals("Add Customer")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddCustomerWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddCustomerWindow.fxml"));
+			loader.setController(new Controller());
+			root = loader.load();
 		}
 		else if(source.equals("Add Employee")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddEmployeeWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddEmployeeWindow.fxml"));
+			loader.setController(new Controller());
+			root = loader.load();
 		}
 		else if(source.equals("Add Order")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddOrderWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddOrderWindow.fxml"));
+			loader.setController(new Controller());
+			root = loader.load();
 		}
 		else if(source.equals("Add Comment")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddCommentWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddCommentWindow.fxml"));
+			loader.setController(new Controller());
+			root = loader.load();
 		}
 		else if(source.equals("Add Employer")) {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/AddEmployerWindow.fxml"));
+			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddEmployerWindow.fxml"));
+			loader.setController(new Controller());
+			root = loader.load();
 		}
 		
 		Scene scene = new Scene(root);
@@ -120,6 +138,7 @@ public class Controller {
 		stage.setTitle(source);
 		stage.setScene(scene);
 		stage.show();	
+		
 	}
 	
 	public int formatPrice(String priceIn){
@@ -153,8 +172,10 @@ public class Controller {
 	}
 	
 	public void addProduct(){
+		
+		System.out.println("whaa");
 		List<Product> products = db.getProducts();
-		String prodChoice = input_order_productList.getSelectionModel().selectedItemProperty().getName();
+		String prodChoice = input_order_productList.getSelectionModel().getSelectedItem();
 		Product product = new Product();
 		for(int i=0;i<products.size();i++){
 			if(products.get(i).getName().equals(prodChoice)){
@@ -167,7 +188,7 @@ public class Controller {
 	}
 	
 	public void removeProduct(){
-		String prodChoice = input_order_productList.getSelectionModel().selectedItemProperty().getName();
+		String prodChoice = input_order_productList.getSelectionModel().getSelectedItem();
 		list_order_products.getText().replace(prodChoice + "\n", "");
 	}
 	
@@ -329,6 +350,22 @@ public class Controller {
 			comment.setEmployeeID(input_comment_employee.getSelectionModel().getSelectedItem());
 			comment.setDate(currentFormattedDate());
 			comment.setComment(input_comment_comment.getText());
+		}
+	}
+
+	@Override
+	public void initialize(URL path, ResourceBundle arg1) {
+		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
+		// TODO Auto-generated method stub
+		System.out.println(fxmlFile);
+		if(fxmlFile.equals("AddOrderWindow.fxml")){
+			List<Product> prods = db.getProducts();
+			List<String> prodNames = new ArrayList<String>();
+			for(int i=0;i<prods.size();i++){
+				prodNames.add(prods.get(i).getName());
+				System.out.println("Found: " + prods.get(i).getName() + ", Added: " + prodNames.get(i));
+			}
+			input_order_productList.setItems(FXCollections.observableArrayList(prodNames));
 		}
 	}
 }
