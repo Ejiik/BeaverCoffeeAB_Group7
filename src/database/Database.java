@@ -128,6 +128,19 @@ public class Database {
 		}
 	}
 	
+	public void updateCustomer(Customer customer){
+		MongoCollection<Customer> coll = db.getCollection("customer", Customer.class);
+		MongoCursor<Customer> cursor = coll.find().iterator();
+	}
+	public void updateEmployee(Employee employee){
+		MongoCollection<Employee> coll = db.getCollection("employee", Employee.class);
+		MongoCursor<Employee> cursor = coll.find().iterator();
+	}
+	public void updateEmployer(Employer employer){
+		MongoCollection<Employer> coll = db.getCollection("employer", Employer.class);
+		MongoCursor<Employer> cursor = coll.find().iterator();
+	}
+	
 	/**	
 	 * Inserts document into a collection
 	 * @param doc
@@ -163,16 +176,32 @@ public class Database {
 	}
 	
 	public int insertComment(Comment comment){
-		MongoCollection<Comment> coll = db.getCollection("comment", Comment.class);
-		MongoCursor<Comment> cursor = coll.find().iterator();
+		MongoCollection<Comment> comColl = db.getCollection("comment", Comment.class);
+		MongoCollection<Employee> emplColl = db.getCollection("employee", Employee.class);
+		MongoCollection<Employer> emplrColl = db.getCollection("employer", Employer.class);
+		MongoCursor<Employee> emplCursor = emplColl.find().iterator();
+		MongoCursor<Employer> emplrCursor = emplrColl.find().iterator();
 		
 		try{
-			while(cursor.hasNext()){
-				Comment com = cursor.next();
+			while(emplCursor.hasNext()){
+				Employee empl = emplCursor.next();
+				if(empl.getEmployeeID().equals(comment.getEmployeeID())){
+					empl.getComments().add(comment);
+				}
 			}
 		}finally{
-			cursor.close();
+			emplCursor.close();
+		}try{
+			while(emplrCursor.hasNext()){
+				Employer emplr = emplrCursor.next();
+				if(emplr.getEmployerID().equals(comment.getEmployeeID())){
+					emplr.getComments().add(comment);
+				}
+			}
+		}finally{
+			emplrCursor.close();
 		}
+		comColl.insertOne(comment);
 		return 0;
 	}
 	
@@ -183,10 +212,16 @@ public class Database {
 		try{
 			while(cursor.hasNext()){
 				Customer cust = cursor.next();
+				if(cust.getCustomerID().equals(customer.getCustomerID())){
+					updateCustomer(customer);
+					return 1;
+				}
 			}
 		}finally{
 			cursor.close();
 		}
+		coll.insertOne(customer);
+		
 		return 0;
 	}
 	
@@ -197,10 +232,16 @@ public class Database {
 		try{
 			while(cursor.hasNext()){
 				Employee empl = cursor.next();
+				if(empl.getEmployeeID().equals(employee.getEmployeeID())){
+					updateEmployee(employee);
+					return 1;
+				}
 			}
 		}finally{
 			cursor.close();
 		}
+		
+		coll.insertOne(employee);
 		return 0;
 	}
 	
@@ -211,24 +252,23 @@ public class Database {
 		try{
 			while(cursor.hasNext()){
 				Employer emplr = cursor.next();
+				if(emplr.getEmployerID().equals(employer.getEmployerID())){
+					updateEmployer(employer);
+					return 1;
+				}
 			}
 		}finally{
 			cursor.close();
 		}
+		
+		coll.insertOne(employer);
 		return 0;
 	}
 	
 	public int insertOrder(Order order){
 		MongoCollection<Order> coll = db.getCollection("order", Order.class);
-		MongoCursor<Order> cursor = coll.find().iterator();
 
-		try{
-			while(cursor.hasNext()){
-				Order ordr = cursor.next();
-			}
-		}finally{
-			cursor.close();
-		}
+		coll.insertOne(order);
 		return 0;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Comment {
 	private String employerID;
 	private String employeeID;
-	private Date date;
+	private String date;
 	private String comment;
 	
 	public Comment(String employerID, String employeeID, String comment) {
@@ -13,6 +13,10 @@ public class Comment {
 		this.employerID = employerID;
 		this.employeeID = employeeID;
 		this.comment = comment;
+	}
+	
+	public Comment(){
+		
 	}
 	
 	public String getEmployerID() {
@@ -27,10 +31,10 @@ public class Comment {
 	public void setEmployeeID(String employeeID) {
 		this.employeeID = employeeID;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getComment() {
