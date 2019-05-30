@@ -7,7 +7,7 @@ public class Employee {
 	private String name;
 	private String persNbr;
 	private String employeeID;
-	private String[] location;
+	private List<String> location;
 	private String position;
 	private String startDate;
 	private String endDate;
@@ -45,11 +45,11 @@ public class Employee {
 		this.employeeID = employeeID;
 	}
 
-	public String[] getLocation() {
+	public List<String>  getLocation() {
 		return location;
 	}
 
-	public void setLocation(String[] location) {
+	public void setLocation(List<String> location) {
 		this.location = location;
 	}
 

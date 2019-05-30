@@ -212,7 +212,9 @@ public class Controller implements Initializable {
 			product.setIngredients(ingredients);
 			product.setUnits(Integer.parseInt(input_product_units.getText()));
 			db.insertProduct(product);
+			((Stage)input_product_name.getScene().getWindow()).close();
 		}
+		
 	}
 	/**
 	 * Method for adding a customer to the database
@@ -243,9 +245,10 @@ public class Controller implements Initializable {
 				}else{
 					zipCode = input_customer_zipcode.getText();
 				}
-				customer.setLocation((String[])Arrays.asList(adress, zipCode).toArray());
+				customer.setLocation(Arrays.asList(adress, zipCode));
 				customer.setCountry(input_customer_country.getText());
 				db.insertCustomer(customer);
+				((Stage)input_customer_name.getScene().getWindow()).close();
 			}
 		}
 	}
@@ -285,6 +288,7 @@ public class Controller implements Initializable {
 			order.setCashier(input_order_cashierID.getText());
 			order.setProducts(products);
 			db.insertOrder(order);
+			((Stage)input_order_cashierID.getScene().getWindow()).close();
 		}
 	}
 	/**
@@ -307,10 +311,11 @@ public class Controller implements Initializable {
 				employee.setName(input_employee_name.getText());
 				employee.setPersNbr(input_employee_birthdate.getText());
 				employee.setEmployeeID(employeeID);
-				employee.setLocation((String[])Arrays.asList(input_employee_address.getText(),input_employee_zipcode.getText()).toArray());
+				employee.setLocation(Arrays.asList(input_employee_address.getText(),input_employee_zipcode.getText()));
 				employee.setPosition(input_employee_position.getText());
 				employee.setStartDate(currentFormattedDate());
 				db.insertEmployee(employee);
+				((Stage)input_employee_name.getScene().getWindow()).close();
 			}
 		}
 	}
@@ -333,6 +338,7 @@ public class Controller implements Initializable {
 				employer.setEmployerID(employerID);
 				employer.setPersNbr(input_employer_birthdate.getText());
 				db.insertEmployer(employer);
+				((Stage)input_employer_name.getScene().getWindow()).close();
 			}
 		}
 	}
@@ -350,6 +356,7 @@ public class Controller implements Initializable {
 			comment.setEmployeeID(input_comment_employee.getSelectionModel().getSelectedItem());
 			comment.setDate(currentFormattedDate());
 			comment.setComment(input_comment_comment.getText());
+			((Stage)input_comment_employer.getScene().getWindow()).close();
 		}
 	}
 

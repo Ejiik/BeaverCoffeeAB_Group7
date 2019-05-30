@@ -37,6 +37,7 @@ public class Database {
 		MongoClientSettings settings = MongoClientSettings.builder().codecRegistry(pojoCodecRegistry).build();
 		mongoClient = MongoClients.create(settings);
 		db = mongoClient.getDatabase("beaverCoffee");
+		
 	}
 	
 	/**
