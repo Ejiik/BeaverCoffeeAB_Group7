@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="519.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <children>
+      <TableView layoutX="14.0" layoutY="198.0" prefHeight="305.0" prefWidth="524.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_show_orders" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Orders" />
+      <Button fx:id="btn_show_employees" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="Show Employees" />
+      <Button fx:id="btn_show_products" layoutX="14.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Products" />
+      <Button fx:id="btn_add_product_window" layoutX="314.0" layoutY="75.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Product" />
+      <Button fx:id="btn_add_customer_window" layoutX="314.0" layoutY="109.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Customer" />
+      <Button fx:id="btn_add_order_window" layoutX="434.0" layoutY="109.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Order" />
+      <Button fx:id="btn_add_employee_window" layoutX="434.0" layoutY="74.0" mnemonicParsing="false" onAction="#ShowAddProduct" prefHeight="25.0" prefWidth="106.0" text="Add Employee" />
+      <Text layoutX="140.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BeaverCoffee AB">
+         <font>
+            <Font name="Lucida Calligraphy Italic" size="27.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
