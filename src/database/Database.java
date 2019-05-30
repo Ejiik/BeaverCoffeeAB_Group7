@@ -105,7 +105,21 @@ public class Database {
 	
 	public void updateProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
-		
+		MongoCursor<Product> cursor = coll.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				Product prod = cursor.next();
+				if(prod.getId().equals(product.getId())){
+					System.out.println("equal values");
+					coll.updateOne(eq("name",prod.getName()), combine(set("type", product.getType()),set("name", product.getName()),set("price", product.getPrice()),set("ingredients",product.getIngredients()),set("units",product.getUnits()),set("inStock", product.getInStock())));
+
+				}else{
+					System.out.println("Not equal values");
+				}
+			}
+		} finally{
+			
+		}
 	}
 	
 	/**	
@@ -130,6 +144,7 @@ public class Database {
 					if(prod.getUnits() > 0){
 						prod.setInStock(true);
 					}
+					updateProduct(prod);
 					return 1;
 				}
 			}
