@@ -63,7 +63,7 @@ public class Controller {
 	 * Method for adding a order to the database
 	 */
 	public void AddOrder() {
-		System.out.println("Added Customer");
+		System.out.println("Added Order");
 	}
 	/**
 	 * Method for adding a employee to the database

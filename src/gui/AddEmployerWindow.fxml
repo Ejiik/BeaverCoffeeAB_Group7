@@ -15,8 +15,8 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btn_add_comment" layoutX="42.0" layoutY="278.0" mnemonicParsing="false" onAction="#AddComment" prefHeight="25.0" prefWidth="149.0" text="Add Employer" />
+      <Button fx:id="btn_add_employer" layoutX="42.0" layoutY="249.0" mnemonicParsing="false" onAction="#AddEmployer" prefHeight="25.0" prefWidth="149.0" text="Add Employer" />
       <TextField fx:id="input_employer_name" layoutX="42.0" layoutY="106.0" />
-      <TextField fx:id="input_employer_name1" layoutX="42.0" layoutY="182.0" />
+      <TextField fx:id="input_employer_birthdate" layoutX="42.0" layoutY="182.0" />
    </children>
 </AnchorPane>
