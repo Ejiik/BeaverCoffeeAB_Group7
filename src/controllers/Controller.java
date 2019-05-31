@@ -530,20 +530,68 @@ public class Controller implements Initializable {
 	}
 	
 	@FXML
-	public void clickItem(MouseEvent event)
+	public void clickItem(MouseEvent event) throws IOException
 	{
 	    if (event.getClickCount() == 2) //Checking double click
 	    {
+	    	FXMLLoader loader;
+			
+			Parent root = null;
 	    	if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Product){
 	    		Product clickedProd = (Product)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedProd.getName());
-	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Employee){
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateProductWindow.fxml"));
+				loader.setController(new UpdateController(clickedProd));
+				root = loader.load();
+	    		
+	    	}
+	    	else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Employer) {
+	    		Employer clickedEmplr = (Employer)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedEmplr.getName());
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployerWindow.fxml"));
+	    		loader.setController(new UpdateController(clickedEmplr));
+	    		root = loader.load();
+	    	}
+	    	else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Employee){
 	    		Employee clickedEmpl = (Employee)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedEmpl.getName());
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployeeWindow.fxml"));
+	    		loader.setController(new UpdateController(clickedEmpl));
+	    		root = loader.load();
+	    		
 	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Order){
 	    		Order clickedOrder = (Order)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedOrder.getCashier());
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateOrderWindow.fxml"));
+	    		loader.setController(new UpdateController(clickedOrder));
+	    		root = loader.load();
 	    	}
+	    	else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Customer) {
+	    		Customer clickedCust = (Customer)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedCust.getName());
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCustomerWindow.fxml"));
+	    		loader.setController(new UpdateController(clickedCust));
+	    		root = loader.load();
+	    	}
+	    	else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Comment) {
+	    		Comment clickedComment = (Comment)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedComment.getComment());
+	    		
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCommentWindow.fxml"));
+	    		loader.setController(new UpdateController(clickedComment));
+	    		root = loader.load();
+	    	}
+	    	
+	    	Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setTitle("Update");
+			stage.setScene(scene);
+			stage.show();	
 	    }
 	}
 	
