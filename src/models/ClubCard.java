@@ -1,4 +1,4 @@
-package controller;
+package models;
 
 import org.bson.types.ObjectId;
 

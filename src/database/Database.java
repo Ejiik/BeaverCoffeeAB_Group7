@@ -5,6 +5,15 @@ import com.mongodb.client.MongoClient;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+
+import models.ClubCard;
+import models.Comment;
+import models.Customer;
+import models.Employee;
+import models.Employer;
+import models.Order;
+import models.Product;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
@@ -15,14 +24,6 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
-
-import controller.ClubCard;
-import controller.Comment;
-import controller.Customer;
-import controller.Employee;
-import controller.Employer;
-import controller.Order;
-import controller.Product;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import java.util.ArrayList;
@@ -41,6 +42,11 @@ public class Database {
 		
 	}
 	
+	public void resetDB(){
+		db.drop();
+		db = mongoClient.getDatabase("beaverCoffee");
+	}
+	
 	/**
 	 * Accesses a collection, or creates a new one if it doesn't exist.
 	 * @param coll - Name of collection
@@ -50,26 +56,28 @@ public class Database {
 		
 		return collection;
 	}
-	
+	/**
+	 * Returns an iterable list of all Collection names.
+	 */
 	public MongoIterable<String> getCollectionNames(){
 		return db.listCollectionNames();
 	}
-	
-//	public void deleteDoc(String collection, String key, String value){
-//		MongoCollection<Document> coll = db.getCollection(collection);
-//		coll.deleteOne(eq(key, value));
-//	}
-	
-	public void removeUnit(Product product){
+
+	/**
+	 * Removes the specified amount of units from the specified product.
+	 * @param product
+	 * @param amount
+	 */
+	public void removeUnit(Product product, int amount){
 		MongoCollection<Document> coll = db.getCollection("product");
-		coll.updateOne(eq("name", product.getName()), set("units", product.getUnits()-1));
+		coll.updateOne(eq("name", product.getName()), set("units", product.getUnits()-amount));
 	}
+
 	
-//	public MongoCollection<Product> getProducts(){
-//		MongoCollection<Product> products = db.getCollection("product", Product.class);
-//		
-//		return products;
-//	}
+	/**
+	 * Returns a List<Product> containing all Product-Objects in the database.
+	 * @return
+	 */
 	public List<Product> getProducts(){
 		MongoCollection<Product> products = db.getCollection("product", Product.class);
 		List<Product> res = new ArrayList<>();
@@ -85,6 +93,10 @@ public class Database {
 		return res;
 	}
 	
+	/**
+	 * Returns a List<Order> containing all Order-Objects in the database.
+	 * @return
+	 */
 	public List<Order> getOrders(){
 		MongoCollection<Order> orders = db.getCollection("order", Order.class);
 		List<Order> res = new ArrayList<Order>();
@@ -99,6 +111,11 @@ public class Database {
 		
 		return res;
 	}
+	
+	/**
+	 * Returns a List<Employee> containing all Employee-Objects in the database.
+	 * @return
+	 */
 	public List<Employee> getEmployees(){
 		MongoCollection<Employee> employees = db.getCollection("employee", Employee.class);
 		List<Employee> res = new ArrayList<Employee>();
@@ -113,6 +130,11 @@ public class Database {
 		
 		return res;
 	}
+	
+	/**
+	 * Returns a List<Employer> containing all Employer-Objects in the database.
+	 * @return
+	 */
 	public List<Employer> getEmployers(){
 		MongoCollection<Employer> employers = db.getCollection("employer", Employer.class);
 		List<Employer> res = new ArrayList<Employer>();
@@ -127,33 +149,48 @@ public class Database {
 		
 		return res;
 	}
+	/**
+	 * Returns a List<Comment> containing all Comment-Objects in the database.
+	 * @return
+	 */
+	public List<Comment> getComments(){
+		MongoCollection<Comment> comments = db.getCollection("comment", Comment.class);
+		List<Comment> res = new ArrayList<Comment>();
+		MongoCursor<Comment> cursor = comments.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
+		}
+		
+		return res;
+	}
+	/**
+	 * Returns a List<Customer> containing all Customer-Objects in the database.
+	 * @return
+	 */
+	public List<Customer> getCustomers(){
+		MongoCollection<Customer> customers = db.getCollection("customer", Customer.class);
+		List<Customer> res = new ArrayList<Customer>();
+		MongoCursor<Customer> cursor = customers.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
+		}
+		
+		return res;
+	}
 	
-//	public void updateDoc(String collection, String keyID, String keyValue, String property, String newValue, boolean all){
-//		MongoCollection<Document> coll = db.getCollection(collection);
-//		if(all){
-//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-//		}else{
-//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
-//		}
-//	}
-//	
-//	public void updateDoc(String collection, String keyID, String keyValue, String property, int newValue, boolean all){
-//		MongoCollection<Document> coll = db.getCollection(collection);
-//		if(all){
-//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-//		}else{
-//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
-//		}
-//	}
-//	public void updateDoc(String collection, String keyID, String keyValue, String property, List<String> newValue, boolean all){
-//		MongoCollection<Document> coll = db.getCollection(collection);
-//		if(all){
-//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-//		}else{
-//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
-//		}
-//	}
-	
+	/**
+	 * Updates values of the existing Product-object in the database, matching the inparameter Product-object,
+	 * with values of the inparameter Product.
+	 * @param product
+	 */
 	public void updateProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
 		MongoCursor<Product> cursor = coll.find().iterator();
@@ -172,7 +209,11 @@ public class Database {
 			
 		}
 	}
-	
+	/**
+	 * Updates values of the existing Customer-object in the database, matching the inparameter Customer-object,
+	 * with values of the inparameter Customer.
+	 * @param product
+	 */
 	public void updateCustomer(Customer customer){
 		MongoCollection<Customer> coll = db.getCollection("customer", Customer.class);
 		MongoCursor<Customer> cursor = coll.find().iterator();
@@ -186,16 +227,11 @@ public class Database {
 		MongoCursor<Employer> cursor = coll.find().iterator();
 	}
 	
-	/**	
-	 * Inserts document into a collection
-	 * @param doc
-	 * @param coll
+	/**
+	 * inserts the given Product into the database.
+	 * @param product
+	 * @return 0: product inserted, 1: product already exist and was updated
 	 */
-//	public void insertDoc(Document doc, String collection){
-//		MongoCollection<Document> coll = db.getCollection(collection);
-//		coll.insertOne(doc);
-//	}
-	
 	public int insertProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
 		MongoCursor<Product> cursor = coll.find().iterator();
@@ -220,6 +256,11 @@ public class Database {
 		return 0;
 	}
 	
+	/**
+	 * inserts the given Product into the database.
+	 * @param product
+	 * @return 0: product inserted, 1: product already exist and was updated
+	 */
 	public int insertComment(Comment comment){
 		MongoCollection<Comment> comColl = db.getCollection("comment", Comment.class);
 		MongoCollection<Employee> emplColl = db.getCollection("employee", Employee.class);
@@ -257,7 +298,7 @@ public class Database {
 		try{
 			while(cursor.hasNext()){
 				Customer cust = cursor.next();
-				if(cust.getCustomerID().equals(customer.getCustomerID())){
+				if((cust.getCustomerID() != null) && cust.getCustomerID().equals(customer.getCustomerID())){
 					updateCustomer(customer);
 					return 1;
 				}

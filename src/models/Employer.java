@@ -1,5 +1,6 @@
-package controller;
+package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employer {
@@ -16,7 +17,7 @@ public class Employer {
 	}
 	
 	public Employer(){
-		
+		comments = new ArrayList<Comment>();
 	}
 	
 	public String getName() {
