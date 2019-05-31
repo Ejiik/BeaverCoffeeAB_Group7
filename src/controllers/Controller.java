@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -34,6 +34,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Comment;
+import models.Customer;
+import models.Employee;
+import models.Employer;
+import models.Order;
+import models.Product;
 
 
 public class Controller implements Initializable {
@@ -111,7 +117,7 @@ public class Controller implements Initializable {
 		
 		if(source.equals("Add Product")) {
 			loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/AddProductWindow.fxml"));
-			loader.setController(this);
+			loader.setController(new Controller());
 			root = loader.load();
 		}
 		else if(source.equals("Add Customer")) {
@@ -368,6 +374,7 @@ public class Controller implements Initializable {
 			comment.setEmployeeID(input_comment_employee.getSelectionModel().getSelectedItem());
 			comment.setDate(currentFormattedDate());
 			comment.setComment(input_comment_comment.getText());
+			db.insertComment(comment);
 			((Stage)input_comment_employer.getScene().getWindow()).close();
 		}
 	}
@@ -465,8 +472,7 @@ public class Controller implements Initializable {
 
 		menu_table_view.getColumns().addAll(id, name, occupation, address, zipcode, country);
 
-		//INSERT db.getCustomers()
-		ObservableList<Customer> data = FXCollections.observableArrayList();
+		ObservableList<Customer> data = FXCollections.observableArrayList(db.getCustomers());
 		id.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
 		name.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
 		occupation.setCellValueFactory(new PropertyValueFactory<Product, String>("occupation"));
@@ -501,18 +507,17 @@ public class Controller implements Initializable {
 		menu_table_view.setVisible(true);
 		menu_table_view.getColumns().clear();
 		
-		TableColumn id = new TableColumn("ID");
+		TableColumn id = new TableColumn("Date");
 		TableColumn employee = new TableColumn("Employee");
 		TableColumn employer = new TableColumn("Employer");
 		TableColumn comment = new TableColumn("Comment");
 		
 		menu_table_view.getColumns().addAll(id, employee, employer, comment);
 		
-		//INSERT db.getComments()
-		ObservableList<Comment> data = FXCollections.observableArrayList();
-		id.setCellValueFactory(new PropertyValueFactory<>("id"));
-		employee.setCellValueFactory(new PropertyValueFactory<Product, String>("employee"));
-		employer.setCellValueFactory(new PropertyValueFactory<Product, String>("employer"));
+		ObservableList<Comment> data = FXCollections.observableArrayList(db.getComments());
+		id.setCellValueFactory(new PropertyValueFactory<>("date"));
+		employee.setCellValueFactory(new PropertyValueFactory<Product, String>("employeeID"));
+		employer.setCellValueFactory(new PropertyValueFactory<Product, String>("employerID"));
 		comment.setCellValueFactory(new PropertyValueFactory<Product, String>("comment"));
 		
 		menu_table_view.setItems(data);
@@ -536,6 +541,10 @@ public class Controller implements Initializable {
 	    }
 	}
 	
+	public void bortMedAllt(){
+		db.resetDB();
+	}
+	
 	@Override
 	public void initialize(URL path, ResourceBundle arg1) {
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
@@ -550,6 +559,20 @@ public class Controller implements Initializable {
 				System.out.println("Found: " + prods.get(i).getName() + ", Added: " + prodNames.get(i));
 			}
 			input_order_productList.setItems(FXCollections.observableArrayList(prodNames));
+		} else if(fxmlFile.equals("AddCommentWindow.fxml")){
+			List<Employer> employers = db.getEmployers();
+			List<String> emplrNames = new ArrayList<String>();
+			List<Employee> employees = db.getEmployees();
+			List<String> emplNames = new ArrayList<String>();
+			
+			for(int i=0;i<employers.size();i++){
+				emplrNames.add(employers.get(i).getEmployerID());
+			}
+			for(int i=0;i<employees.size();i++){
+				emplNames.add(employees.get(i).getEmployeeID());
+			}
+			input_comment_employer.setItems(FXCollections.observableArrayList(emplrNames));
+			input_comment_employee.setItems(FXCollections.observableArrayList(emplNames));
 		}
 	}
 }

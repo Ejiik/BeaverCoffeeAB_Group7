@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="519.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<AnchorPane prefHeight="519.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <TableView fx:id="menu_table_view" layoutX="14.0" layoutY="198.0" onMouseClicked="#clickItem" prefHeight="305.0" prefWidth="524.0" visible="false" />
       <Button fx:id="btn_show_orders" layoutX="129.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowOrderCollection" prefHeight="25.0" prefWidth="106.0" text="Show Orders" />
@@ -26,5 +26,6 @@
       <Button fx:id="btn_show_orders1" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowCustomerCollection" prefHeight="25.0" prefWidth="106.0" text="Show Customers" />
       <Button fx:id="btn_show_employees1" layoutX="129.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowEmployerCollection" prefHeight="25.0" prefWidth="106.0" text="Show Employer" />
       <Button fx:id="btn_show_products1" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowCommentCollection" prefHeight="25.0" prefWidth="106.0" text="Show Comment" />
+      <Button fx:id="btnClearDB" layoutX="401.0" layoutY="26.0" mnemonicParsing="false" onAction="#bortMedAllt" prefHeight="25.0" prefWidth="139.0" text="Rensa hela skiten! " />
    </children>
 </AnchorPane>
