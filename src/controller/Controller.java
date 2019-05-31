@@ -456,11 +456,14 @@ public class Controller implements Initializable {
 	    if (event.getClickCount() == 2) //Checking double click
 	    {
 	    	if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Product){
-	    		System.out.println(((Product)menu_table_view.getSelectionModel().getSelectedItem()).getName());
+	    		Product clickedProd = (Product)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedProd.getName());
 	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Employee){
-	    		System.out.println(((Employee)menu_table_view.getSelectionModel().getSelectedItem()).getName());
+	    		Employee clickedEmpl = (Employee)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedEmpl.getName());
 	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Order){
-	    		System.out.println(((Order)menu_table_view.getSelectionModel().getSelectedItem()).getCashier());
+	    		Order clickedOrder = (Order)menu_table_view.getSelectionModel().getSelectedItem();
+	    		System.out.println(clickedOrder.getCashier());
 	    	}
 	    }
 	}
