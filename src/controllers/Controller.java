@@ -400,10 +400,10 @@ public class Controller implements Initializable {
 		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date);
 		
 		ObservableList<Order> data = FXCollections.observableArrayList(db.getOrders());
-		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("orderID"));
 		cashierID.setCellValueFactory(new PropertyValueFactory<Product,String>("cashier"));
 		customerID.setCellValueFactory(new PropertyValueFactory<Product,String>("customer"));
-		product.setCellValueFactory(new PropertyValueFactory<Product,String>("product(s)"));
+		product.setCellValueFactory(new PropertyValueFactory<Product,String>("products"));
 		date.setCellValueFactory(new PropertyValueFactory<Product,String>("date"));
 
 		menu_table_view.setItems(data);
