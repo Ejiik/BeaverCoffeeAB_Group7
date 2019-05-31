@@ -15,12 +15,19 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			scene = new Scene(root);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("BeaverCoffee AB");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+//			root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+//			scene = new Scene(root);
+//			primaryStage.setResizable(false);
+//			primaryStage.setTitle("BeaverCoffee AB");
+//			primaryStage.setScene(scene);
+//			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
