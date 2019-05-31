@@ -16,6 +16,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
 
+import controller.ClubCard;
 import controller.Comment;
 import controller.Customer;
 import controller.Employee;
@@ -264,6 +265,7 @@ public class Database {
 		}finally{
 			cursor.close();
 		}
+		System.out.print(customer.getId());
 		coll.insertOne(customer);
 		
 		return 0;
