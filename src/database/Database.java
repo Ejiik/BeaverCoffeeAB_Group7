@@ -54,10 +54,10 @@ public class Database {
 		return db.listCollectionNames();
 	}
 	
-	public void deleteDoc(String collection, String key, String value){
-		MongoCollection<Document> coll = db.getCollection(collection);
-		coll.deleteOne(eq(key, value));
-	}
+//	public void deleteDoc(String collection, String key, String value){
+//		MongoCollection<Document> coll = db.getCollection(collection);
+//		coll.deleteOne(eq(key, value));
+//	}
 	
 	public void removeUnit(Product product){
 		MongoCollection<Document> coll = db.getCollection("product");
@@ -84,31 +84,74 @@ public class Database {
 		return res;
 	}
 	
-	public void updateDoc(String collection, String keyID, String keyValue, String property, String newValue, boolean all){
-		MongoCollection<Document> coll = db.getCollection(collection);
-		if(all){
-			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-		}else{
-			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
+	public List<Order> getOrders(){
+		MongoCollection<Order> orders = db.getCollection("order", Order.class);
+		List<Order> res = new ArrayList<Order>();
+		MongoCursor<Order> cursor = orders.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
 		}
+		
+		return res;
+	}
+	public List<Employee> getEmployees(){
+		MongoCollection<Employee> employees = db.getCollection("employee", Employee.class);
+		List<Employee> res = new ArrayList<Employee>();
+		MongoCursor<Employee> cursor = employees.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
+		}
+		
+		return res;
+	}
+	public List<Employer> getEmployers(){
+		MongoCollection<Employer> employers = db.getCollection("employer", Employer.class);
+		List<Employer> res = new ArrayList<Employer>();
+		MongoCursor<Employer> cursor = employers.find().iterator();
+		try{
+			while(cursor.hasNext()){
+				res.add(cursor.next());
+			}
+		}finally{
+			cursor.close();
+		}
+		
+		return res;
 	}
 	
-	public void updateDoc(String collection, String keyID, String keyValue, String property, int newValue, boolean all){
-		MongoCollection<Document> coll = db.getCollection(collection);
-		if(all){
-			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-		}else{
-			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
-		}
-	}
-	public void updateDoc(String collection, String keyID, String keyValue, String property, List<String> newValue, boolean all){
-		MongoCollection<Document> coll = db.getCollection(collection);
-		if(all){
-			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
-		}else{
-			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
-		}
-	}
+//	public void updateDoc(String collection, String keyID, String keyValue, String property, String newValue, boolean all){
+//		MongoCollection<Document> coll = db.getCollection(collection);
+//		if(all){
+//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
+//		}else{
+//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
+//		}
+//	}
+//	
+//	public void updateDoc(String collection, String keyID, String keyValue, String property, int newValue, boolean all){
+//		MongoCollection<Document> coll = db.getCollection(collection);
+//		if(all){
+//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
+//		}else{
+//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
+//		}
+//	}
+//	public void updateDoc(String collection, String keyID, String keyValue, String property, List<String> newValue, boolean all){
+//		MongoCollection<Document> coll = db.getCollection(collection);
+//		if(all){
+//			coll.updateMany(eq(keyID, keyValue), set(property, newValue));
+//		}else{
+//			coll.updateOne(eq(keyID, keyValue), set(property, newValue));
+//		}
+//	}
 	
 	public void updateProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
@@ -147,10 +190,10 @@ public class Database {
 	 * @param doc
 	 * @param coll
 	 */
-	public void insertDoc(Document doc, String collection){
-		MongoCollection<Document> coll = db.getCollection(collection);
-		coll.insertOne(doc);
-	}
+//	public void insertDoc(Document doc, String collection){
+//		MongoCollection<Document> coll = db.getCollection(collection);
+//		coll.insertOne(doc);
+//	}
 	
 	public int insertProduct(Product product){
 		MongoCollection<Product> coll = db.getCollection("product", Product.class);
