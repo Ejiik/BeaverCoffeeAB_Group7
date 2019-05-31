@@ -242,8 +242,8 @@ public class Controller implements Initializable {
 			if(input_customer_name.getText().split(" ").length == 1){
 				JOptionPane.showMessageDialog(null, "Please enter both first and last name!");
 			}else{
-				String adress;
-				String zipCode;
+//				String adress;
+//				String zipCode;
 				String[] tempStrArr = input_customer_name.getText().split(" ");
 				String customerID = tempStrArr[0].substring(0, 2) + tempStrArr[1].substring(0, 2)
 						+ input_customer_birthdate.getText().substring(2, 6);
@@ -254,16 +254,20 @@ public class Controller implements Initializable {
 				customer.setPersNbr(input_customer_birthdate.getText());
 				customer.setCustomerID(customerID);
 				if(input_customer_address.getText().isEmpty()){
-					adress ="n/a";
+					customer.setAddress("n/a");
+					//adress ="n/a";
 				}else{
-					adress = input_customer_address.getText();
+					customer.setAddress(input_customer_address.getText());
+					//adress = input_customer_address.getText();
 				}
 				if(input_customer_zipcode.getText().isEmpty()){
-					zipCode = "n/a";
+					customer.setZipcode("n/a");
+//					zipCode = "n/a";
 				}else{
-					zipCode = input_customer_zipcode.getText();
+					customer.setZipcode(input_customer_zipcode.getText());
+//					zipCode = input_customer_zipcode.getText();
 				}
-				customer.setLocation(Arrays.asList(adress, zipCode));
+				//customer.setLocation(Arrays.asList(adress, zipCode));
 				customer.setCountry(input_customer_country.getText());
 				db.insertCustomer(customer);
 				((Stage)input_customer_name.getScene().getWindow()).close();
@@ -329,7 +333,9 @@ public class Controller implements Initializable {
 				employee.setName(input_employee_name.getText());
 				employee.setPersNbr(input_employee_birthdate.getText());
 				employee.setEmployeeID(employeeID);
-				employee.setLocation(Arrays.asList(input_employee_address.getText(),input_employee_zipcode.getText()));
+				//employee.setLocation(Arrays.asList(input_employee_address.getText(),input_employee_zipcode.getText()));
+				employee.setAddress(input_employee_address.getText());
+				employee.setZipcode(input_employee_zipcode.getText());
 				employee.setPosition(input_employee_position.getText());
 				employee.setStartDate(currentFormattedDate());
 				db.insertEmployee(employee);
@@ -424,7 +430,7 @@ public class Controller implements Initializable {
 		name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
 		position.setCellValueFactory(new PropertyValueFactory<Product,String>("position"));
 		address.setCellValueFactory(new PropertyValueFactory<Product,String>("address"));
-		zipcode.setCellValueFactory(new PropertyValueFactory<Product,String>("zip code"));
+		zipcode.setCellValueFactory(new PropertyValueFactory<Product,String>("zipcode"));
 		country.setCellValueFactory(new PropertyValueFactory<Product,String>("country"));
 		
 		menu_table_view.setItems(data);
@@ -473,7 +479,7 @@ public class Controller implements Initializable {
 		menu_table_view.getColumns().addAll(id, name, occupation, address, zipcode, country);
 
 		ObservableList<Customer> data = FXCollections.observableArrayList(db.getCustomers());
-		id.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
+		id.setCellValueFactory(new PropertyValueFactory<Product, String>("customerID"));
 		name.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
 		occupation.setCellValueFactory(new PropertyValueFactory<Product, String>("occupation"));
 		address.setCellValueFactory(new PropertyValueFactory<Product, String>("address"));

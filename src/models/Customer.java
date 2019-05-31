@@ -12,18 +12,22 @@ public class Customer {
 	private String name;
 	private String occupation;
 	private String persNbr;
-	private List<String> location;
+	//private List<String> location;
+	private String address;
+	private String zipcode;
 	private String country;
 	private ClubCard clubCard;
 	
-	public Customer(String customerID, String name, String occupation, String persNbr, List<String> location,
+	public Customer(String customerID, String name, String occupation, String persNbr, String address, String zipcode,
 			ClubCard clubCard) {
 		super();
 		this.customerID = customerID;
 		this.name = name;
 		this.occupation = occupation;
 		this.persNbr = persNbr;
-		this.location = location;
+		//this.location = location;
+		this.address = address;
+		this.zipcode = zipcode;
 		this.clubCard = clubCard;
 	}
 	
@@ -61,12 +65,12 @@ public class Customer {
 	public void setPersNbr(String persNbr) {
 		this.persNbr = persNbr;
 	}
-	public List<String> getLocation() {
-		return location;
-	}
-	public void setLocation(List<String> location) {
-		this.location = location;
-	}
+//	public List<String> getLocation() {
+//		return location;
+//	}
+//	public void setLocation(List<String> location) {
+//		this.location = location;
+//	}
 	public ClubCard getClubCard() {
 		return clubCard;
 	}
@@ -88,5 +92,21 @@ public class Customer {
 
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 }
