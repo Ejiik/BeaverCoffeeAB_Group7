@@ -8,7 +8,9 @@ public class Employee {
 	private String name;
 	private String persNbr;
 	private String employeeID;
-	private List<String> location;
+//	private List<String> location;
+	private String address;
+	private String zipcode;
 	private String position;
 	private String startDate;
 	private String endDate;
@@ -46,13 +48,13 @@ public class Employee {
 		this.employeeID = employeeID;
 	}
 
-	public List<String>  getLocation() {
-		return location;
-	}
-
-	public void setLocation(List<String> location) {
-		this.location = location;
-	}
+//	public List<String>  getLocation() {
+//		return location;
+//	}
+//
+//	public void setLocation(List<String> location) {
+//		this.location = location;
+//	}
 
 	public String getPosition() {
 		return position;
@@ -84,6 +86,22 @@ public class Employee {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 	
 	
