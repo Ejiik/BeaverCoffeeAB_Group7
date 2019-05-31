@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="update_employee_name" layoutX="41.0" layoutY="64.0" />
+      <TextField fx:id="update_employee_position" layoutX="41.0" layoutY="106.0" />
+      <TextField fx:id="update_employee_address" layoutX="41.0" layoutY="148.0" />
+      <TextField fx:id="update_employee_zipcode" layoutX="41.0" layoutY="190.0" />
+      <Text layoutX="41.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+      <Text layoutX="41.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position:" />
+      <Text layoutX="41.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" />
+      <Text layoutX="41.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+      <Text layoutX="43.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code:" />
+      <Text layoutX="56.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a employee">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="btn_add_employee" layoutX="42.0" layoutY="305.0" mnemonicParsing="false" onAction="#UpdateEmployee" prefHeight="25.0" prefWidth="149.0" text="Update Employee" />
+      <TextField fx:id="update_employee_country" layoutX="41.0" layoutY="231.0" />
+      <Text layoutX="41.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
+      <TextField fx:id="update_employee_birthdate" layoutX="42.0" layoutY="272.0" prefHeight="25.0" prefWidth="149.0" />
+   </children>
+</AnchorPane>
