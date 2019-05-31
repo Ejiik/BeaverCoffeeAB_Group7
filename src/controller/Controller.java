@@ -380,6 +380,15 @@ public class Controller implements Initializable {
 		
 		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date);
 		
+		ObservableList<Order> data = FXCollections.observableArrayList(db.getOrders());
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		cashierID.setCellValueFactory(new PropertyValueFactory<Product,String>("cashier"));
+		customerID.setCellValueFactory(new PropertyValueFactory<Product,String>("customer"));
+		product.setCellValueFactory(new PropertyValueFactory<Product,String>("product(s)"));
+		date.setCellValueFactory(new PropertyValueFactory<Product,String>("date"));
+
+		menu_table_view.setItems(data);
+		
 	}
 
 	public void ShowEmployeeCollection() {
@@ -396,6 +405,16 @@ public class Controller implements Initializable {
 		TableColumn country = new TableColumn("Country");
 		
 		menu_table_view.getColumns().addAll(id,name,position,address,zipcode,country);
+		
+		ObservableList<Employee> data = FXCollections.observableArrayList(db.getEmployees());
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+		position.setCellValueFactory(new PropertyValueFactory<Product,String>("position"));
+		address.setCellValueFactory(new PropertyValueFactory<Product,String>("address"));
+		zipcode.setCellValueFactory(new PropertyValueFactory<Product,String>("zip code"));
+		country.setCellValueFactory(new PropertyValueFactory<Product,String>("country"));
+
+		menu_table_view.setItems(data);
 	}
 	
 	public void ShowProductCollection() {
