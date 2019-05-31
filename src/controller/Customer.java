@@ -3,7 +3,10 @@ package controller;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 public class Customer {
+	private ObjectId id;
 	private String customerID;
 	private String registrationDate;
 	private String name;
@@ -77,5 +80,13 @@ public class Customer {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
 	}
 }

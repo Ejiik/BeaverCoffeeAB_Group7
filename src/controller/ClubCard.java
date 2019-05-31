@@ -1,5 +1,7 @@
 package controller;
 
+import org.bson.types.ObjectId;
+
 public class ClubCard {
 	private String cardNumber;
 	private String country;
@@ -30,4 +32,5 @@ public class ClubCard {
 	public void setNumberOfCoffee(int numberOfCoffee) {
 		this.numberOfCoffee = numberOfCoffee;
 	}
+
 }

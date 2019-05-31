@@ -32,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -237,10 +238,15 @@ public class Controller implements Initializable {
 			}else{
 				String adress;
 				String zipCode;
+				String[] tempStrArr = input_customer_name.getText().split(" ");
+				String customerID = tempStrArr[0].substring(0, 2) + tempStrArr[1].substring(0, 2)
+						+ input_customer_birthdate.getText().substring(2, 6);
+				
 				customer.setRegistrationDate(currentFormattedDate());
 				customer.setName(input_customer_name.getText());
 				customer.setOccupation(input_customer_occupation.getText());
 				customer.setPersNbr(input_customer_birthdate.getText());
+				customer.setCustomerID(customerID);
 				if(input_customer_address.getText().isEmpty()){
 					adress ="n/a";
 				}else{
@@ -413,7 +419,7 @@ public class Controller implements Initializable {
 		address.setCellValueFactory(new PropertyValueFactory<Product,String>("address"));
 		zipcode.setCellValueFactory(new PropertyValueFactory<Product,String>("zip code"));
 		country.setCellValueFactory(new PropertyValueFactory<Product,String>("country"));
-
+		
 		menu_table_view.setItems(data);
 	}
 	
@@ -441,13 +447,30 @@ public class Controller implements Initializable {
 		ingredients.setCellValueFactory(new PropertyValueFactory<Product,String>("ingredients"));
 
 		menu_table_view.setItems(data);
+		
+	}
+	
+	@FXML
+	public void clickItem(MouseEvent event)
+	{
+	    if (event.getClickCount() == 2) //Checking double click
+	    {
+	    	if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Product){
+	    		System.out.println(((Product)menu_table_view.getSelectionModel().getSelectedItem()).getName());
+	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Employee){
+	    		System.out.println(((Employee)menu_table_view.getSelectionModel().getSelectedItem()).getName());
+	    	}else if(menu_table_view.getSelectionModel().getSelectedItem() instanceof Order){
+	    		System.out.println(((Order)menu_table_view.getSelectionModel().getSelectedItem()).getCashier());
+	    	}
+	    }
 	}
 	
 	@Override
 	public void initialize(URL path, ResourceBundle arg1) {
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
-		// TODO Auto-generated method stub
+		
 		System.out.println(fxmlFile);
+		
 		if(fxmlFile.equals("AddOrderWindow.fxml")){
 			List<Product> prods = db.getProducts();
 			List<String> prodNames = new ArrayList<String>();
