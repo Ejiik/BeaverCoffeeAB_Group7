@@ -450,6 +450,74 @@ public class Controller implements Initializable {
 		
 	}
 	
+	public void ShowCustomerCollection() {
+		System.out.println("Show Customer Collection");
+
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		TableColumn occupation = new TableColumn("Occupation");
+		TableColumn address = new TableColumn("Address");
+		TableColumn zipcode = new TableColumn("Zip-Code");
+		TableColumn country = new TableColumn("Country");
+
+		menu_table_view.getColumns().addAll(id, name, occupation, address, zipcode, country);
+
+		//INSERT db.getCustomers()
+		ObservableList<Customer> data = FXCollections.observableArrayList();
+		id.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		occupation.setCellValueFactory(new PropertyValueFactory<Product, String>("occupation"));
+		address.setCellValueFactory(new PropertyValueFactory<Product, String>("address"));
+		zipcode.setCellValueFactory(new PropertyValueFactory<Product, String>("zipcode"));
+		country.setCellValueFactory(new PropertyValueFactory<Product, String>("country"));
+
+		menu_table_view.setItems(data);
+	}
+	
+	public void ShowEmployerCollection() {
+		System.out.println("Show Employer Collection");
+		
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+		
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		
+		menu_table_view.getColumns().addAll(id, name);
+		
+		ObservableList<Employer> data = FXCollections.observableArrayList(db.getEmployers());
+		id.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		
+		menu_table_view.setItems(data);
+	}
+	
+	public void ShowCommentCollection() {
+		System.out.println("Show Comment Collection");
+		
+		menu_table_view.setVisible(true);
+		menu_table_view.getColumns().clear();
+		
+		TableColumn id = new TableColumn("ID");
+		TableColumn employee = new TableColumn("Employee");
+		TableColumn employer = new TableColumn("Employer");
+		TableColumn comment = new TableColumn("Comment");
+		
+		menu_table_view.getColumns().addAll(id, employee, employer, comment);
+		
+		//INSERT db.getComments()
+		ObservableList<Comment> data = FXCollections.observableArrayList();
+		id.setCellValueFactory(new PropertyValueFactory<>("id"));
+		employee.setCellValueFactory(new PropertyValueFactory<Product, String>("employee"));
+		employer.setCellValueFactory(new PropertyValueFactory<Product, String>("employer"));
+		comment.setCellValueFactory(new PropertyValueFactory<Product, String>("comment"));
+		
+		menu_table_view.setItems(data);
+	}
+	
 	@FXML
 	public void clickItem(MouseEvent event)
 	{
