@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.result.DeleteResult;
 
 import models.ClubCard;
 import models.Comment;
@@ -48,6 +49,37 @@ public class Database {
 	public void resetDB(){
 		db.drop();
 		db = mongoClient.getDatabase("beaverCoffee");
+	}
+	
+	public DeleteResult DeleteComment(Comment comment){
+		MongoCollection<Comment> coll = db.getCollection("comment",Comment.class);
+		DeleteResult res = coll.deleteOne(eq("_id", comment.getId()));
+		return res;
+	}
+	public DeleteResult DeleteCustomer(Customer customer){
+		MongoCollection<Customer> coll = db.getCollection("customer",Customer.class);
+		DeleteResult res = coll.deleteOne(eq("_id", customer.getId()));
+		return res;
+	}
+	public DeleteResult DeleteEmployee(Employee employee){
+		MongoCollection<Employee> coll = db.getCollection("employee",Employee.class);
+		DeleteResult res = coll.deleteOne(eq("_id", employee.getId()));
+		return res;
+	}
+	public DeleteResult DeleteEmployer(Employer employer){
+		MongoCollection<Employer> coll = db.getCollection("employer",Employer.class);
+		DeleteResult res = coll.deleteOne(eq("_id", employer.getId()));
+		return res;
+	}
+	public DeleteResult DeleteOrder(Order order){
+		MongoCollection<Order> coll = db.getCollection("order",Order.class);
+		DeleteResult res = coll.deleteOne(eq("orderID", order.getOrderID()));
+		return res;
+	}
+	public DeleteResult DeleteProduct(Product product){
+		MongoCollection<Product> coll = db.getCollection("product",Product.class);
+		DeleteResult res = coll.deleteOne(eq("_id", product.getId()));
+		return res;
 	}
 	
 	/**
@@ -207,7 +239,7 @@ public class Database {
 				Product prod = cursor.next();
 				if(prod.getId().equals(product.getId())){
 					System.out.println("equal values");
-					coll.updateOne(eq("name",prod.getName()), combine(set("type", product.getType()),set("name", product.getName()),set("price", product.getPrice()),set("ingredients",product.getIngredients()),set("units",product.getUnits()),set("inStock", product.getInStock())));
+					coll.updateOne(eq("_id",prod.getId()), combine(set("productID", product.getProductID()),set("type", product.getType()),set("name", product.getName()),set("price", product.getPrice()),set("ingredients",product.getIngredients()),set("units",product.getUnits()),set("inStock", product.getInStock())));
 
 				}else{
 					System.out.println("Not equal values");
@@ -239,7 +271,7 @@ public class Database {
 	}
 	public void updateOrder(Order order){
 		MongoCollection<Order> coll = db.getCollection("order", Order.class);
-		coll.updateOne(eq("orderID", order.getOrderID()), combine(set("total", order.getTotal()), set("customer", order.getCustomer()), set("cashier", order.getCashier()), set("products", order.getProducts())));
+		coll.updateOne(eq("orderID", order.getOrderID()), combine(set("total", order.getTotal()), set("customer", order.getCustomer()), set("cashier", order.getCashier()), set("products", order.getProducts()), set("processed", order.getProcessed())));
 	}
 	public void updateComment(Comment comment){
 		System.out.println(comment.getId());
@@ -397,6 +429,7 @@ public class Database {
 		List<Product> productsOrder = order.getProducts();
 		MongoCursor<Customer> cursor = customerColl.find().iterator();
 		Product product = null;
+		Customer customer = null;
 		
 		for(int i=0;i<productsDB.size();i++){
 			for(int j=0;j<productsOrder.size();j++){
@@ -424,7 +457,7 @@ public class Database {
 		
 		try{
 			while(cursor.hasNext()){
-				Customer customer = cursor.next();
+				customer = cursor.next();
 				if(customer.getCustomerID().equals(order.getCustomer())){
 					if(order.getCashier().equals(order.getCustomer())){
 						order.setTotal((order.getTotal()) + (int)(order.getTotal()*(10.0f/100.0f)));
@@ -455,7 +488,11 @@ public class Database {
 		}finally{
 			cursor.close();
 		}
+		if(customer != null){
+			updateCustomer(customer);
+		}
 		order.setProcessed(true);
+		updateOrder(order);
 		return "Process successful!";
 	}
 }

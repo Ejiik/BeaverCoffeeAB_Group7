@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="346.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="update_employee_name" layoutX="41.0" layoutY="64.0" />
       <TextField fx:id="update_employee_position" layoutX="41.0" layoutY="106.0" />
@@ -27,5 +27,12 @@
       <Text layoutX="41.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
       <TextField fx:id="update_employee_birthdate" layoutX="42.0" layoutY="272.0" prefHeight="25.0" prefWidth="149.0" />
       <Button fx:id="btn_delete_employee" layoutX="122.0" layoutY="305.0" mnemonicParsing="false" onAction="#DeleteEmployee" prefHeight="25.0" prefWidth="66.0" text="Delete" />
+      <TableView fx:id="table_employee_comments" layoutX="199.0" layoutY="63.0" onMouseClicked="#clickItem" prefHeight="267.0" prefWidth="177.0">
+        <columns>
+          <TableColumn fx:id="column_employee_employer" prefWidth="73.0" text="Employer" />
+          <TableColumn fx:id="column_employee_comment" prefWidth="103.0" text="Comment" />
+        </columns>
+      </TableView>
+      <Text layoutX="199.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" />
    </children>
 </AnchorPane>

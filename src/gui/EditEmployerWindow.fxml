@@ -6,20 +6,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="261.0" prefWidth="352.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="42.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-      <Text layoutX="42.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
-      <Text layoutX="74.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit employer">
+      <Text layoutX="14.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+      <Text layoutX="14.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
+      <Text layoutX="46.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit employer">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btn_add_employer" layoutX="42.0" layoutY="249.0" mnemonicParsing="false" onAction="#UpdateEmployer" prefHeight="25.0" prefWidth="70.0" text="Update" />
-      <TextField fx:id="update_employer_name" layoutX="42.0" layoutY="106.0" />
-      <TextField fx:id="update_employer_birthdate" layoutX="42.0" layoutY="203.0" />
-      <Text layoutX="42.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
-      <TextField fx:id="update_employer_country" layoutX="42.0" layoutY="154.0" />
-      <Button fx:id="btn_delete_employer" layoutX="117.0" layoutY="249.0" mnemonicParsing="false" onAction="#DeleteEmployer" prefHeight="25.0" prefWidth="70.0" text="Delete" />
+      <Button fx:id="btn_add_employer" layoutX="14.0" layoutY="216.0" mnemonicParsing="false" onAction="#UpdateEmployer" prefHeight="25.0" prefWidth="70.0" text="Update" />
+      <TextField fx:id="update_employer_name" layoutX="14.0" layoutY="73.0" />
+      <TextField fx:id="update_employer_birthdate" layoutX="14.0" layoutY="170.0" />
+      <Text layoutX="14.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+      <TextField fx:id="update_employer_country" layoutX="14.0" layoutY="121.0" />
+      <Button fx:id="btn_delete_employer" layoutX="89.0" layoutY="216.0" mnemonicParsing="false" onAction="#DeleteEmployer" prefHeight="25.0" prefWidth="70.0" text="Delete" />
+      <TableView fx:id="table_employer_comments" layoutX="176.0" layoutY="35.0" onMouseClicked="#clickItem" prefHeight="207.0" prefWidth="165.0">
+         <columns>
+            <TableColumn fx:id="column_employer_employee" prefWidth="73.0" text="Employee" />
+            <TableColumn fx:id="column_employer_comment" prefWidth="103.0" text="Comment" />
+         </columns>
+      </TableView>
+      <Text layoutX="176.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" />
    </children>
 </AnchorPane>

@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -31,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -45,6 +47,33 @@ import models.Product;
 public class Controller implements Initializable {
 
 	Database db = new Database();
+	
+	@FXML
+	private Button btn_show_products;	
+	@FXML
+	private Button btn_show_customers;	
+	@FXML
+	private Button btn_show_comments;	
+	@FXML
+	private Button btn_show_employees;	
+	@FXML
+	private Button btn_show_employers;	
+	@FXML
+	private Button btn_show_orders;	
+	@FXML
+	private Button btn_add_product_window;	
+	@FXML
+	private Button btn_add_customer_window;	
+	@FXML
+	private Button btn_add_comment_window;	
+	@FXML
+	private Button btn_add_employee_window;	
+	@FXML
+	private Button btn_add_employer_window;	
+	@FXML
+	private Button btn_add_order_window;	
+	@FXML
+	private Button btnClearDB;
 	
 	@FXML
 	private TextField input_product_name;
@@ -108,8 +137,15 @@ public class Controller implements Initializable {
 	@FXML
 	private TableView menu_table_view;
 	
+	
+	private String userType = null;
+	
 	public Controller() {
 		
+	}
+	
+	public Controller(String userType) {
+		this.userType = userType;
 	}
 	
 	public void ShowNewScene(ActionEvent event) throws IOException {
@@ -216,13 +252,18 @@ public class Controller implements Initializable {
 		Product product = new Product();
 		if(input_product_name.getText().isEmpty() || input_product_type.getText().isEmpty() 
 				|| input_product_units.getText().isEmpty() || input_product_price.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
-		}else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
+			}else{
 			String priceStr = input_product_price.getText();
 			int price = formatPrice(priceStr);
+			String productID = input_product_name.getText() + db.getProducts().size();
 			
 			product.setType(input_product_type.getText());
 			product.setName(input_product_name.getText());
+			product.setProductID(productID);
 			product.setPrice(price);
 			List<String> ingredients = Arrays.asList(list_product_ingredients.getText().split("\n"));
 			product.setIngredients(ingredients);
@@ -240,13 +281,17 @@ public class Controller implements Initializable {
 		Customer customer = new Customer();
 		if(input_customer_name.getText().isEmpty() || input_customer_occupation.getText().isEmpty() || 
 				input_customer_birthdate.getText().isEmpty() || input_customer_country.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
-		}else{
-			if(input_customer_name.getText().split(" ").length == 1){
-				JOptionPane.showMessageDialog(null, "Please enter both first and last name!");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
 			}else{
-//				String adress;
-//				String zipCode;
+			if(input_customer_name.getText().split(" ").length == 1){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Empty fields!");
+				alert.setContentText("Please enter both first and last name!");
+				alert.showAndWait();
+				}else{
 				String[] tempStrArr = input_customer_name.getText().split(" ");
 				String customerID = tempStrArr[0].substring(0, 2) + tempStrArr[1].substring(0, 2)
 						+ input_customer_birthdate.getText().substring(2, 6);
@@ -258,19 +303,14 @@ public class Controller implements Initializable {
 				customer.setCustomerID(customerID);
 				if(input_customer_address.getText().isEmpty()){
 					customer.setAddress("n/a");
-					//adress ="n/a";
 				}else{
 					customer.setAddress(input_customer_address.getText());
-					//adress = input_customer_address.getText();
 				}
 				if(input_customer_zipcode.getText().isEmpty()){
 					customer.setZipcode("n/a");
-//					zipCode = "n/a";
 				}else{
 					customer.setZipcode(input_customer_zipcode.getText());
-//					zipCode = input_customer_zipcode.getText();
 				}
-				//customer.setLocation(Arrays.asList(adress, zipCode));
 				customer.setCountry(input_customer_country.getText());
 				db.insertCustomer(customer);
 				((Stage)input_customer_name.getScene().getWindow()).close();
@@ -284,8 +324,11 @@ public class Controller implements Initializable {
 		System.out.println("Added Order");
 		Order order = new Order();
 		if(input_order_cashierID.getSelectionModel().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
-		}else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
+			}else{
 			String[] productNames = list_order_products.getText().split("\n");
 			List<Product> products = new ArrayList<>();
 			int total = 0;
@@ -324,11 +367,17 @@ public class Controller implements Initializable {
 		Employee employee = new Employee();
 		if(input_employee_name.getText().isEmpty() || input_employee_birthdate.getText().isEmpty() || input_employee_address.getText().isEmpty() 
 				|| input_employee_zipcode.getText().isEmpty() || input_employee_position.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
-		}else{
-			if(input_employee_name.getText().split(" ").length == 1){
-				JOptionPane.showMessageDialog(null, "Please enter both first and last name!");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
 			}else{
+			if(input_employee_name.getText().split(" ").length == 1){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Empty fields!");
+				alert.setContentText("Please enter both first and surname!");
+				alert.showAndWait();
+				}else{
 				String[] tempStrArr = input_employee_name.getText().split(" ");
 				String employeeID = tempStrArr[0].substring(0, 2) + tempStrArr[1].substring(0, 2) + input_employee_birthdate.getText().substring(2, 6);
 				System.out.println(employeeID);
@@ -354,11 +403,17 @@ public class Controller implements Initializable {
 		System.out.println("Added Employer");
 		Employer employer = new Employer();
 		if(input_employer_name.getText().isEmpty() || input_employer_birthdate.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
 		}else{
 			if(input_employer_name.getText().split(" ").length == 1){
-				JOptionPane.showMessageDialog(null, "Please enter both first and last name!");
-			}else{
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Empty fields!");
+				alert.setContentText("Please enter both first and surname!");
+				alert.showAndWait();
+				}else{
 				String[] tempStrArr = input_employer_name.getText().split(" ");
 				String employerID = tempStrArr[0].substring(0, 2) + tempStrArr[1].substring(0, 2) + input_employer_birthdate.getText().substring(2, 6);
 				System.out.println(employerID);
@@ -379,14 +434,25 @@ public class Controller implements Initializable {
 		Comment comment = new Comment();
 		if(input_comment_employer.getSelectionModel().isEmpty() || input_comment_employee.getSelectionModel().isEmpty() || 
 				input_comment_comment.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Empty fields!");
+			alert.setContentText("Please fill all required fields!");
+			alert.showAndWait();
 		}else{
 			comment.setEmployerID(input_comment_employer.getSelectionModel().getSelectedItem());
 			comment.setEmployeeID(input_comment_employee.getSelectionModel().getSelectedItem());
 			comment.setDate(currentFormattedDate());
-			comment.setComment(input_comment_comment.getText());
-			db.insertComment(comment);
-			((Stage)input_comment_employer.getScene().getWindow()).close();
+			if(input_comment_comment.getText().length() <= 300){
+				comment.setComment(input_comment_comment.getText());
+				db.insertComment(comment);
+				((Stage)input_comment_employer.getScene().getWindow()).close();
+			}else{
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Comment too long!");
+				alert.setContentText("Comment needs to be shorter than 300 characters!");
+				alert.showAndWait();
+			}
+			
 		}
 	}
 	
@@ -402,6 +468,14 @@ public class Controller implements Initializable {
 		TableColumn product = new TableColumn("Product(s)");
 		TableColumn date = new TableColumn("Date");
 		TableColumn processed = new TableColumn("Processed");
+		
+		id.setResizable(false);
+		cashierID.setResizable(false);
+		customerID.setResizable(false);
+		product.setResizable(false);
+		date.setResizable(false);
+		processed.setResizable(false);
+		
 		
 		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date,processed);
 		
@@ -430,6 +504,13 @@ public class Controller implements Initializable {
 		TableColumn zipcode = new TableColumn("Zip-Code");
 		TableColumn country = new TableColumn("Country");
 		
+		id.setResizable(false);
+		name.setResizable(false);
+		position.setResizable(false);
+		address.setResizable(false);
+		zipcode.setResizable(false);
+		country.setResizable(false);
+		
 		menu_table_view.getColumns().addAll(id,name,position,address,zipcode,country);
 		
 		ObservableList<Employee> data = FXCollections.observableArrayList(db.getEmployees());
@@ -456,10 +537,17 @@ public class Controller implements Initializable {
 		TableColumn units = new TableColumn("Units");
 		TableColumn ingredients = new TableColumn("Ingredients");
 		
+		id.setResizable(false);
+		name.setResizable(false);
+		type.setResizable(false);
+		price.setResizable(false);
+		units.setResizable(false);
+		ingredients.setResizable(false);
+		
 		menu_table_view.getColumns().addAll(id,name,type,price,units,ingredients);
 				
 		ObservableList<Product> data = FXCollections.observableArrayList(db.getProducts());
-		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("productID"));
 		name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
 		type.setCellValueFactory(new PropertyValueFactory<Product,String>("type"));
 		price.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
@@ -483,6 +571,13 @@ public class Controller implements Initializable {
 		TableColumn zipcode = new TableColumn("Zip-Code");
 		TableColumn country = new TableColumn("Country");
 
+		id.setResizable(false);
+		name.setResizable(false);
+		occupation.setResizable(false);
+		address.setResizable(false);
+		zipcode.setResizable(false);
+		country.setResizable(false);
+		
 		menu_table_view.getColumns().addAll(id, name, occupation, address, zipcode, country);
 
 		ObservableList<Customer> data = FXCollections.observableArrayList(db.getCustomers());
@@ -505,10 +600,13 @@ public class Controller implements Initializable {
 		TableColumn id = new TableColumn("ID");
 		TableColumn name = new TableColumn("Name");
 		
+		id.setResizable(false);
+		name.setResizable(false);
+		
 		menu_table_view.getColumns().addAll(id, name);
 		
 		ObservableList<Employer> data = FXCollections.observableArrayList(db.getEmployers());
-		id.setCellValueFactory(new PropertyValueFactory<Product, String>("id"));
+		id.setCellValueFactory(new PropertyValueFactory<Product, String>("employerID"));
 		name.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
 		
 		menu_table_view.setItems(data);
@@ -524,6 +622,11 @@ public class Controller implements Initializable {
 		TableColumn employee = new TableColumn("Employee");
 		TableColumn employer = new TableColumn("Employer");
 		TableColumn comment = new TableColumn("Comment");
+		
+		id.setResizable(false);
+		employee.setResizable(false);
+		employer.setResizable(false);
+		comment.setResizable(false);
 		
 		menu_table_view.getColumns().addAll(id, employee, employer, comment);
 		
@@ -548,7 +651,7 @@ public class Controller implements Initializable {
 	    		Product clickedProd = (Product)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedProd.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateProductWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditProductWindow.fxml"));
 				loader.setController(new UpdateController(clickedProd));
 				root = loader.load();
 	    		
@@ -557,7 +660,7 @@ public class Controller implements Initializable {
 	    		Employer clickedEmplr = (Employer)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedEmplr.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployerWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditEmployerWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedEmplr));
 	    		root = loader.load();
 	    	}
@@ -565,7 +668,7 @@ public class Controller implements Initializable {
 	    		Employee clickedEmpl = (Employee)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedEmpl.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployeeWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditEmployeeWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedEmpl));
 	    		root = loader.load();
 	    		
@@ -573,7 +676,7 @@ public class Controller implements Initializable {
 	    		Order clickedOrder = (Order)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedOrder.getCashier());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateOrderWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditOrderWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedOrder));
 	    		root = loader.load();
 	    	}
@@ -581,7 +684,7 @@ public class Controller implements Initializable {
 	    		Customer clickedCust = (Customer)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedCust.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCustomerWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditCustomerWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedCust));
 	    		root = loader.load();
 	    	}
@@ -589,16 +692,17 @@ public class Controller implements Initializable {
 	    		Comment clickedComment = (Comment)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedComment.getComment());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCommentWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditCommentWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedComment));
 	    		root = loader.load();
 	    	}
-	    	
-	    	Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			stage.setTitle("Update");
-			stage.setScene(scene);
-			stage.show();	
+	    	if(root != null){
+	    		Scene scene = new Scene(root);
+				Stage stage = new Stage();
+				stage.setTitle("Edit");
+				stage.setScene(scene);
+				stage.show();
+	    	}
 	    }
 	}
 	
@@ -611,6 +715,36 @@ public class Controller implements Initializable {
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
 		
 		System.out.println(fxmlFile);
+		
+		if(userType != null){
+			switch(userType){
+			case("Employee"):
+			btn_show_comments.setVisible(false);
+			btn_show_employers.setVisible(false);
+			btn_add_product_window.setVisible(false);
+			btn_add_comment_window.setVisible(false);
+			btn_add_employee_window.setVisible(false);
+			btn_add_employer_window.setVisible(false);
+			btnClearDB.setVisible(false);
+				break;
+			case("Employer"):
+				
+				break;
+			case("Customer"):
+				btn_show_products.setVisible(false);
+				btn_show_customers.setVisible(false);
+				btn_show_comments.setVisible(false);
+				btn_show_employees.setVisible(false);
+				btn_show_employers.setVisible(false);
+				btn_show_orders.setVisible(false);
+				btn_add_product_window.setVisible(false);
+				btn_add_comment_window.setVisible(false);
+				btn_add_employee_window.setVisible(false);
+				btn_add_employer_window.setVisible(false);
+				btnClearDB.setVisible(false);
+				break;
+			}
+		}
 		
 		if(fxmlFile.equals("AddOrderWindow.fxml")){
 			List<Customer> customers = db.getCustomers();

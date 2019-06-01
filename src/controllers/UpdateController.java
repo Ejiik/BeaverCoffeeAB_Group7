@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -16,13 +17,22 @@ import database.Database;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.*;
 
 public class UpdateController implements Initializable{
@@ -105,6 +115,19 @@ public class UpdateController implements Initializable{
 	private ChoiceBox<String> update_comment_employer;
 	@FXML
 	private TextArea update_comment_comment;
+	@FXML
+	private TableView table_employee_comments;
+	@FXML
+	private TableView table_employer_comments;
+	@FXML
+	private TableColumn column_employee_employer;
+	@FXML
+	private TableColumn column_employer_employee;
+	@FXML
+	private TableColumn column_employee_comment;
+	@FXML
+	private TableColumn column_employer_comment;
+	
 	
 	public UpdateController(Object ob) {
 		if(ob instanceof Product) 		
@@ -153,6 +176,8 @@ public class UpdateController implements Initializable{
 	public void UpdateProduct() {
 		String priceStr = update_product_price.getText();
 		int price = formatPrice(priceStr);
+		String productID = update_product_name.getText() + db.getProducts().size();
+		product.setProductID(productID);
 		product.setName(update_product_name.getText());
 		product.setType(update_product_type.getText());
 		product.setPrice(price);
@@ -223,15 +248,88 @@ public class UpdateController implements Initializable{
 	public void UpdateComment() {
 		comment.setEmployerID(update_comment_employer.getSelectionModel().getSelectedItem());
 		comment.setEmployeeID(update_comment_employee.getSelectionModel().getSelectedItem());
-		comment.setComment(update_comment_comment.getText());
-		db.updateComment(comment);
-		((Stage)update_comment_employer.getScene().getWindow()).close();
+		if(update_comment_comment.getText().length() <= 300){
+			comment.setComment(update_comment_comment.getText());
+			db.updateComment(comment);
+			((Stage)update_comment_employer.getScene().getWindow()).close();
+		}else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Comment too long!");
+			alert.setContentText("Comment needs to be shorter than 300 characters!");
+			alert.showAndWait();
+		}
+		
 	}
 	
+	public void DeleteComment(){
+		((Stage)update_comment_employer.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteComment(comment).getDeletedCount() == 1.0){
+			alert.setContentText("Comment deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
+	public void DeleteCustomer(){
+		((Stage)update_customer_name.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteCustomer(customer).getDeletedCount() == 1.0){
+			alert.setContentText("Customer deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
+	public void DeleteEmployee(){
+		((Stage)update_employee_name.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteEmployee(employee).getDeletedCount() == 1.0){
+			alert.setContentText("Employee deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
+	public void DeleteEmployer(){
+		((Stage)update_employer_name.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteEmployer(employer).getDeletedCount() == 1.0){
+			alert.setContentText("Employer deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
+	public void DeleteOrder(){
+		((Stage)update_order_cashierID.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteOrder(order).getDeletedCount() == 1.0){
+			alert.setContentText("Order deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
+	public void DeleteProduct(){
+		((Stage)update_product_price.getScene().getWindow()).close();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Delete result");
+		if(db.DeleteProduct(product).getDeletedCount() == 1.0){
+			alert.setContentText("Product deleted!");
+		}else{
+			alert.setContentText("Delete failed!");
+		}
+		alert.showAndWait();
+	}
 	
 	public void addProduct(){
 		
-		System.out.println("whaa");
 		List<Product> products = db.getProducts();
 		String prodChoice = update_order_productList.getSelectionModel().getSelectedItem();
 		Product product = new Product();
@@ -251,13 +349,37 @@ public class UpdateController implements Initializable{
 	
 	public void processOrder(){
 		UpdateOrder();
-		JOptionPane.showMessageDialog(null, db.processOrder(order));
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Empty fields!");
+		alert.setContentText(db.processOrder(order));
+		alert.showAndWait();
 	}
+	
+	@FXML
+	public void clickItem(MouseEvent event) throws IOException
+	{
+		if (event.getClickCount() == 2){
+			if(event.getSource().equals(table_employee_comments)){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Comment");
+				alert.setHeaderText("Comment from " + ((Comment)table_employee_comments.getSelectionModel().getSelectedItem()).getEmployerID());
+				alert.setContentText(((Comment)table_employee_comments.getSelectionModel().getSelectedItem()).getComment());
+				alert.showAndWait();
+			}else if(event.getSource().equals(table_employer_comments)){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Comment");
+				alert.setHeaderText("Comment from " + ((Comment)table_employer_comments.getSelectionModel().getSelectedItem()).getEmployeeID());
+				alert.setContentText(((Comment)table_employer_comments.getSelectionModel().getSelectedItem()).getComment());
+				alert.showAndWait();
+			}
+		}
+	}
+	
 	public void initialize(URL path, ResourceBundle arg1) {
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
 		System.out.println(fxmlFile);
 		
-		if(fxmlFile.equals("UpdateProductWindow.fxml")) {	
+		if(fxmlFile.equals("EditProductWindow.fxml")) {	
 			update_product_price.textProperty().addListener(new ChangeListener<String>() {
 	            @Override
 	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -275,7 +397,7 @@ public class UpdateController implements Initializable{
 				update_list_product_ingredients.appendText(i+"\n");
 			}
 		}
-		else if(fxmlFile.equals("UpdateOrderWindow.fxml")) {
+		else if(fxmlFile.equals("EditOrderWindow.fxml")) {
 			System.out.println(fxmlFile);
 			List<Customer> customers = db.getCustomers();
 			List<String> customerNames = new ArrayList<String>();
@@ -306,14 +428,27 @@ public class UpdateController implements Initializable{
 				update_list_order_products.appendText(order.getProducts().get(i).getName() + "\n");
 			}
 		}
-		else if(fxmlFile.equals("UpdateEmployerWindow.fxml")) {
+		else if(fxmlFile.equals("EditEmployerWindow.fxml")) {
 			System.out.println(employer.getId());
 			update_employer_name.setText(employer.getName());
 			update_employer_country.setText(employer.getCountry());
 			update_employer_birthdate.setText(employer.getPersNbr());
 			
+			column_employer_employee.setResizable(false);
+			column_employer_comment.setResizable(false);
+			List<Comment> commentsDB = db.getComments();
+			List<Comment> employerComments = new ArrayList<Comment>();
+			for(int i=0;i<commentsDB.size();i++){
+				if(commentsDB.get(i).getEmployerID().equals(employer.getEmployerID())){
+					employerComments.add(commentsDB.get(i));
+				}
+			}
+			ObservableList<Comment> data = FXCollections.observableArrayList(employerComments);
+			column_employer_employee.setCellValueFactory(new PropertyValueFactory<Comment, String>("employeeID"));
+			column_employer_comment.setCellValueFactory(new PropertyValueFactory<Comment,String>("comment"));
+			table_employer_comments.setItems(data);
 		}
-		else if(fxmlFile.equals("UpdateEmployeeWindow.fxml")) {
+		else if(fxmlFile.equals("EditEmployeeWindow.fxml")) {
 			System.out.println(employee.getId());
 			update_employee_name.setText(employee.getName());
 			update_employee_position.setText(employee.getPosition());
@@ -321,8 +456,22 @@ public class UpdateController implements Initializable{
 			update_employee_zipcode.setText(employee.getZipcode());
 			update_employee_country.setText(employee.getCountry());		
 			update_employee_birthdate.setText(employee.getPersNbr());
+			
+			column_employee_employer.setResizable(false);
+			column_employee_comment.setResizable(false);
+			List<Comment> commentsDB = db.getComments();
+			List<Comment> employeeComments = new ArrayList<Comment>();
+			for(int i=0;i<commentsDB.size();i++){
+				if(commentsDB.get(i).getEmployeeID().equals(employee.getEmployeeID())){
+					employeeComments.add(commentsDB.get(i));
+				}
+			}
+			ObservableList<Comment> data = FXCollections.observableArrayList(employeeComments);
+			column_employee_employer.setCellValueFactory(new PropertyValueFactory<Comment, String>("employerID"));
+			column_employee_comment.setCellValueFactory(new PropertyValueFactory<Comment,String>("comment"));
+			table_employee_comments.setItems(data);
 		}
-		else if(fxmlFile.equals("UpdateCustomerWindow.fxml")) {
+		else if(fxmlFile.equals("EditCustomerWindow.fxml")) {
 			System.out.println(customer.getId());
 			update_customer_name.setText(customer.getName());
 			update_customer_occupation.setText(customer.getOccupation());
@@ -331,7 +480,7 @@ public class UpdateController implements Initializable{
 			update_customer_country.setText(customer.getCountry());
 			update_customer_birthdate.setText(customer.getPersNbr());
 		}
-		else if(fxmlFile.equals("UpdateCommentWindow.fxml")) {
+		else if(fxmlFile.equals("EditCommentWindow.fxml")) {
 			System.out.println(comment.getId());
 			List<Employer> employers = db.getEmployers();
 			List<String> emplrNames = new ArrayList<String>();
