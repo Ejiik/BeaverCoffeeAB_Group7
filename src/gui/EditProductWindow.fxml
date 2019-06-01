@@ -17,12 +17,13 @@
       <Text layoutX="42.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" />
       <Text layoutX="42.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredients:" />
       <Text layoutX="44.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Units:" />
-      <Text layoutX="57.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a product">
+      <Text layoutX="75.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit product">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btn_update_product" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#UpdateProduct" prefHeight="25.0" prefWidth="149.0" text="Update Product" />
+      <Button fx:id="btn_update_product" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#UpdateProduct" prefHeight="25.0" prefWidth="71.0" text="Update" />
       <TextArea fx:id="update_list_product_ingredients" layoutX="42.0" layoutY="242.0" prefHeight="51.0" prefWidth="149.0" />
+      <Button fx:id="btn_delete_product" layoutX="120.0" layoutY="300.0" mnemonicParsing="false" onAction="#DeleteProduct" prefHeight="25.0" prefWidth="73.0" text="Delete" />
    </children>
 </AnchorPane>
