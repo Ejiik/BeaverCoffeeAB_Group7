@@ -34,8 +34,8 @@ public class LoginController implements Initializable{
 	private String user;
 	private String userType;
 	
-
-	Database db = new Database();
+	private Database db = new Database();
+	
 	
 	public void start(){
 		try {
@@ -53,8 +53,6 @@ public class LoginController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	@Override
@@ -106,7 +104,6 @@ public class LoginController implements Initializable{
 			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
 				btnLogin.setDisable(false);
 			}
-			
 		});
 	}
 

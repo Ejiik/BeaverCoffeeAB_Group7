@@ -13,7 +13,7 @@ public final class Product{
 	private int price;
 	private List<String> ingredients;
 	private int units;
-	private boolean inStock;
+	private boolean inStock = false;
 	
 	public Product(String type, String name, int price, List<String> ingredients, int units, boolean inStock) {
 		super();
@@ -75,7 +75,10 @@ public final class Product{
 	 * @param units
 	 */
 	public void setUnits(int units){
-		this.units+=units;
+		this.units=units;
+		if(this.units>0){
+			inStock = true;
+		}
 	}
 	public boolean getInStock(){
 		return inStock;

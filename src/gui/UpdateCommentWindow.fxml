@@ -19,6 +19,6 @@
       <Button fx:id="btn_update_comment" layoutX="42.0" layoutY="305.0" mnemonicParsing="false" onAction="#UpdateComment" prefHeight="25.0" prefWidth="149.0" text="Update Comment" />
       <ChoiceBox fx:id="update_comment_employee" layoutX="41.0" layoutY="64.0" prefHeight="25.0" prefWidth="149.0" />
       <ChoiceBox fx:id="update_comment_employer" layoutX="41.0" layoutY="106.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextArea fx:id="update_comment_comment" layoutX="42.0" layoutY="148.0" prefHeight="146.0" prefWidth="149.0" />
+      <TextArea fx:id="update_comment_comment" layoutX="42.0" layoutY="148.0" prefHeight="146.0" prefWidth="149.0" wrapText="true" />
    </children>
 </AnchorPane>

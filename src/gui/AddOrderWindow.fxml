@@ -8,10 +8,6 @@
 
 <AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="input_order_cashierID" layoutX="42.0" layoutY="77.0" />
-      <TextField fx:id="input_order_customerID" layoutX="42.0" layoutY="119.0" />
-      <Text layoutX="42.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cashier ID:" />
-      <Text layoutX="42.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID" />
       <Text layoutX="65.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new order">
          <font>
             <Font size="14.0" />
@@ -23,5 +19,9 @@
       <Button fx:id="btn_input_order_add" layoutX="42.0" layoutY="195.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="66.0" text="Add" />
       <Button fx:id="btn_input_order_delLast" layoutX="123.0" layoutY="195.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="25.0" prefWidth="66.0" text="Del Last" />
       <TextArea fx:id="list_order_products" editable="false" layoutX="42.0" layoutY="226.0" prefHeight="75.0" prefWidth="149.0" />
+      <ChoiceBox fx:id="input_order_cashierID" layoutX="42.0" layoutY="79.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="input_order_customerID" layoutX="42.0" layoutY="121.0" prefWidth="150.0" />
+      <Text layoutX="42.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID" />
+      <Text layoutX="42.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cashier ID:" />
    </children>
 </AnchorPane>

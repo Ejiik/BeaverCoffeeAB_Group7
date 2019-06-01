@@ -2,7 +2,10 @@ package models;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 public class Comment {
+	private ObjectId id;
 	private String employerID;
 	private String employeeID;
 	private String date;
@@ -42,5 +45,13 @@ public class Comment {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
 	}
 }
