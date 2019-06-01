@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="346.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutX="42.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-      <Text layoutX="42.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
+      <Text layoutX="42.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YYMMDD-XXXX:" />
       <Text layoutX="57.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a employer">
          <font>
             <Font size="14.0" />
@@ -17,6 +17,8 @@
       </Text>
       <Button fx:id="btn_add_employer" layoutX="42.0" layoutY="249.0" mnemonicParsing="false" onAction="#UpdateEmployer" prefHeight="25.0" prefWidth="149.0" text="Update Employer" />
       <TextField fx:id="update_employer_name" layoutX="42.0" layoutY="106.0" />
-      <TextField fx:id="update_employer_birthdate" layoutX="42.0" layoutY="182.0" />
+      <TextField fx:id="update_employer_birthdate" layoutX="42.0" layoutY="203.0" />
+      <Text layoutX="42.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+      <TextField fx:id="update_employer_country" layoutX="42.0" layoutY="154.0" />
    </children>
 </AnchorPane>

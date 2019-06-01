@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 public class Employee {
+	private ObjectId id;
 	private String name;
 	private String persNbr;
 	private String employeeID;
 //	private List<String> location;
+	private String country;
 	private String address;
 	private String zipcode;
 	private String position;
@@ -102,6 +106,22 @@ public class Employee {
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 	

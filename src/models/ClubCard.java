@@ -13,6 +13,9 @@ public class ClubCard {
 		this.country = country;
 		this.numberOfCoffee = numberOfCoffee;
 	}
+	public ClubCard(){
+		
+	}
 	
 	public String getCardNumber() {
 		return cardNumber;
@@ -24,13 +27,16 @@ public class ClubCard {
 		return country;
 	}
 	public void setCountry(String country) {
-		country = country;
+		this.country = country;
 	}
 	public int getNumberOfCoffee() {
 		return numberOfCoffee;
 	}
 	public void setNumberOfCoffee(int numberOfCoffee) {
 		this.numberOfCoffee = numberOfCoffee;
+	}
+	public void addCoffee(){
+		numberOfCoffee += 1;
 	}
 
 }

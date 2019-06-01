@@ -71,9 +71,9 @@ public class Controller implements Initializable {
 	private TextField input_customer_birthdate;
 	
 	@FXML
-	private TextField input_order_cashierID;
+	private ChoiceBox<String> input_order_cashierID;
 	@FXML
-	private TextField input_order_customerID;
+	private ChoiceBox<String> input_order_customerID;
 	@FXML 
 	private TextArea list_order_products;
 	@FXML
@@ -89,11 +89,15 @@ public class Controller implements Initializable {
 	private TextField input_employee_zipcode;
 	@FXML
 	private TextField input_employee_birthdate;
+	@FXML
+	private TextField input_employee_country;
 	
 	@FXML
 	private TextField input_employer_name;
 	@FXML
 	private TextField input_employer_birthdate;
+	@FXML
+	private TextField input_employer_country;
 	
 	@FXML
 	private ChoiceBox<String> input_comment_employer;
@@ -186,7 +190,6 @@ public class Controller implements Initializable {
 	
 	public void addProduct(){
 		
-		System.out.println("whaa");
 		List<Product> products = db.getProducts();
 		String prodChoice = input_order_productList.getSelectionModel().getSelectedItem();
 		Product product = new Product();
@@ -280,7 +283,7 @@ public class Controller implements Initializable {
 	public void AddOrder() {
 		System.out.println("Added Order");
 		Order order = new Order();
-		if(input_order_cashierID.getText().isEmpty()){
+		if(input_order_cashierID.getSelectionModel().isEmpty()){
 			JOptionPane.showMessageDialog(null, "Please fill all required fields!");
 		}else{
 			String[] productNames = list_order_products.getText().split("\n");
@@ -291,23 +294,23 @@ public class Controller implements Initializable {
 			
 			for(int i = 0;i<prods.size();i++){
 					for(int j=0;j<productNames.length;j++){
-						if(prods.get(i).getName() == productNames[j]){
+						if(prods.get(i).getName().equals(productNames[j])){
 							products.add(prods.get(i));
 							total += prods.get(i).getPrice();
 						}
 					}
 				}
 			
-			order.setOrderID(input_order_cashierID.getText().substring(0, 3) + currentFormattedDate().substring(4));
+			order.setOrderID(input_order_cashierID.getSelectionModel().getSelectedItem().substring(0, 3) + currentFormattedDate().substring(4));
 			order.setDate(currentFormattedDate());
 			order.setTotal(total);
-			if(input_order_customerID.getText().isEmpty()){
+			if(input_order_customerID.getSelectionModel().isEmpty()){
 				order.setCustomer("n/a");
 			}else{
-				order.setCustomer(input_order_customerID.getText());
+				order.setCustomer(input_order_customerID.getSelectionModel().getSelectedItem());
 			}
 			
-			order.setCashier(input_order_cashierID.getText());
+			order.setCashier(input_order_cashierID.getSelectionModel().getSelectedItem());
 			order.setProducts(products);
 			db.insertOrder(order);
 			((Stage)input_order_cashierID.getScene().getWindow()).close();
@@ -336,6 +339,7 @@ public class Controller implements Initializable {
 				//employee.setLocation(Arrays.asList(input_employee_address.getText(),input_employee_zipcode.getText()));
 				employee.setAddress(input_employee_address.getText());
 				employee.setZipcode(input_employee_zipcode.getText());
+				employee.setCountry(input_employee_country.getText());
 				employee.setPosition(input_employee_position.getText());
 				employee.setStartDate(currentFormattedDate());
 				db.insertEmployee(employee);
@@ -361,6 +365,7 @@ public class Controller implements Initializable {
 				employer.setName(input_employer_name.getText());
 				employer.setEmployerID(employerID);
 				employer.setPersNbr(input_employer_birthdate.getText());
+				employer.setCountry(input_employer_country.getText());
 				db.insertEmployer(employer);
 				((Stage)input_employer_name.getScene().getWindow()).close();
 			}
@@ -396,15 +401,17 @@ public class Controller implements Initializable {
 		TableColumn customerID = new TableColumn("CustomerID");
 		TableColumn product = new TableColumn("Product(s)");
 		TableColumn date = new TableColumn("Date");
+		TableColumn processed = new TableColumn("Processed");
 		
-		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date);
+		menu_table_view.getColumns().addAll(id,cashierID,customerID,product,date,processed);
 		
 		ObservableList<Order> data = FXCollections.observableArrayList(db.getOrders());
-		id.setCellValueFactory(new PropertyValueFactory<Product,String>("orderID"));
-		cashierID.setCellValueFactory(new PropertyValueFactory<Product,String>("cashier"));
-		customerID.setCellValueFactory(new PropertyValueFactory<Product,String>("customer"));
-		product.setCellValueFactory(new PropertyValueFactory<Product,String>("products"));
-		date.setCellValueFactory(new PropertyValueFactory<Product,String>("date"));
+		id.setCellValueFactory(new PropertyValueFactory<Order,String>("orderID"));
+		cashierID.setCellValueFactory(new PropertyValueFactory<Order,String>("cashier"));
+		customerID.setCellValueFactory(new PropertyValueFactory<Order,String>("customer"));
+		product.setCellValueFactory(new PropertyValueFactory<Product,String>("productNames"));
+		date.setCellValueFactory(new PropertyValueFactory<Order,String>("date"));
+		processed.setCellValueFactory(new PropertyValueFactory<Order, String>("processed"));
 
 		menu_table_view.setItems(data);
 		
@@ -426,7 +433,7 @@ public class Controller implements Initializable {
 		menu_table_view.getColumns().addAll(id,name,position,address,zipcode,country);
 		
 		ObservableList<Employee> data = FXCollections.observableArrayList(db.getEmployees());
-		id.setCellValueFactory(new PropertyValueFactory<Product,String>("id"));
+		id.setCellValueFactory(new PropertyValueFactory<Product,String>("employeeID"));
 		name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
 		position.setCellValueFactory(new PropertyValueFactory<Product,String>("position"));
 		address.setCellValueFactory(new PropertyValueFactory<Product,String>("address"));
@@ -606,12 +613,26 @@ public class Controller implements Initializable {
 		System.out.println(fxmlFile);
 		
 		if(fxmlFile.equals("AddOrderWindow.fxml")){
+			List<Customer> customers = db.getCustomers();
+			List<String> customerNames = new ArrayList<String>();
+			List<Employee> employees = db.getEmployees();
+			List<String> emplNames = new ArrayList<String>();
 			List<Product> prods = db.getProducts();
 			List<String> prodNames = new ArrayList<String>();
+			
 			for(int i=0;i<prods.size();i++){
 				prodNames.add(prods.get(i).getName());
 				System.out.println("Found: " + prods.get(i).getName() + ", Added: " + prodNames.get(i));
 			}
+			for(int i=0;i<customers.size();i++){
+				customerNames.add(customers.get(i).getCustomerID());
+			}
+			for(int i=0;i<employees.size();i++){
+				emplNames.add(employees.get(i).getEmployeeID());
+			}
+			
+			input_order_customerID.setItems(FXCollections.observableArrayList(customerNames));
+			input_order_cashierID.setItems(FXCollections.observableArrayList(emplNames));
 			input_order_productList.setItems(FXCollections.observableArrayList(prodNames));
 		} else if(fxmlFile.equals("AddCommentWindow.fxml")){
 			List<Employer> employers = db.getEmployers();
@@ -627,6 +648,15 @@ public class Controller implements Initializable {
 			}
 			input_comment_employer.setItems(FXCollections.observableArrayList(emplrNames));
 			input_comment_employee.setItems(FXCollections.observableArrayList(emplNames));
+		} else if(fxmlFile.equals("AddProductWindow.fxml")){
+			input_product_price.textProperty().addListener(new ChangeListener<String>() {
+	            @Override
+	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
+	                	input_product_price.setText(oldValue);
+	                }
+	            }
+	        });
 		}
 	}
 }

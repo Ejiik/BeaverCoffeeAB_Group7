@@ -15,7 +15,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btn_update_order" layoutX="42.0" layoutY="307.0" mnemonicParsing="false" onAction="#UpdateOrder" prefHeight="25.0" prefWidth="149.0" text="Update Order" />
+      <Button fx:id="btn_update_order" layoutX="105.0" layoutY="307.0" mnemonicParsing="false" onAction="#UpdateOrder" prefHeight="25.0" prefWidth="103.0" text="Update Order" />
       <Text layoutX="44.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product:" />
       <ChoiceBox fx:id="update_order_productList" layoutX="42.0" layoutY="164.0" prefWidth="150.0" />
       <Button fx:id="btn_update_order_add" layoutX="42.0" layoutY="195.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="66.0" text="Add" />
@@ -23,5 +23,6 @@
       <TextArea fx:id="update_list_order_products" editable="false" layoutX="42.0" layoutY="226.0" prefHeight="75.0" prefWidth="149.0" />
       <ChoiceBox fx:id="update_order_customerID" layoutX="42.0" layoutY="119.0" prefWidth="150.0" />
       <ChoiceBox fx:id="update_order_cashierID" layoutX="42.0" layoutY="77.0" prefWidth="150.0" />
+      <Button fx:id="btn_process_order" layoutX="22.0" layoutY="307.0" mnemonicParsing="false" onAction="#processOrder" prefHeight="25.0" prefWidth="66.0" text="Process" />
    </children>
 </AnchorPane>

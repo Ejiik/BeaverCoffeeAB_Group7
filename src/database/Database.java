@@ -68,9 +68,14 @@ public class Database {
 	 * @param product
 	 * @param amount
 	 */
-	public void removeUnit(Product product, int amount){
+	public void removeUnit(Product product){
 		MongoCollection<Document> coll = db.getCollection("product");
-		coll.updateOne(eq("name", product.getName()), set("units", product.getUnits()-amount));
+		int newAmount = product.getUnits() - 1;
+		coll.updateOne(eq("name", product.getName()), set("units", newAmount));
+		if(newAmount == 0){
+			coll.updateOne(eq("name", product.getName()), set("inStock", false));
+		}
+		
 	}
 
 	
@@ -215,16 +220,28 @@ public class Database {
 	 * @param product
 	 */
 	public void updateCustomer(Customer customer){
+		System.out.println(customer.getId());
 		MongoCollection<Customer> coll = db.getCollection("customer", Customer.class);
-		MongoCursor<Customer> cursor = coll.find().iterator();
+		coll.updateOne(eq("_id", customer.getId()), combine(set("name", customer.getName()), set("occupation", customer.getOccupation()), set("persNbr", customer.getPersNbr()), set("address", customer.getAddress()), set("zipcode",customer.getZipcode()), set("country", customer.getCountry()), set("clubCard", customer.getClubCard())));
 	}
 	public void updateEmployee(Employee employee){
+		System.out.println(employee.getId());
 		MongoCollection<Employee> coll = db.getCollection("employee", Employee.class);
-		MongoCursor<Employee> cursor = coll.find().iterator();
+		coll.updateOne(eq("_id", employee.getId()), combine(set("name", employee.getName()), set("persNbr", employee.getPersNbr()), set("address", employee.getAddress()), set("zipcode", employee.getZipcode()), set("position",employee.getPosition()), set("comments", employee.getComments())));
 	}
 	public void updateEmployer(Employer employer){
+		System.out.println(employer.getId());
 		MongoCollection<Employer> coll = db.getCollection("employer", Employer.class);
-		MongoCursor<Employer> cursor = coll.find().iterator();
+		coll.updateOne(eq("_id", employer.getId()), combine(set("name", employer.getName()), set("persNbr", employer.getPersNbr()), set("comments", employer.getComments())));
+	}
+	public void updateOrder(Order order){
+		MongoCollection<Order> coll = db.getCollection("order", Order.class);
+		coll.updateOne(eq("orderID", order.getOrderID()), combine(set("total", order.getTotal()), set("customer", order.getCustomer()), set("cashier", order.getCashier()), set("products", order.getProducts())));
+	}
+	public void updateComment(Comment comment){
+		System.out.println(comment.getId());
+		MongoCollection<Comment> coll = db.getCollection("comment", Comment.class);
+		coll.updateOne(eq("_id", comment.getId()), combine(set("employerID", comment.getEmployerID()), set("employeeID", comment.getEmployeeID()), set("comment", comment.getComment())));
 	}
 	
 	/**
@@ -306,8 +323,10 @@ public class Database {
 		}finally{
 			cursor.close();
 		}
-		System.out.print(customer.getId());
 		coll.insertOne(customer);
+		customer.setClubCard(new ClubCard(customer.getId().toString(),customer.getCountry(),0));
+		updateCustomer(customer);
+		System.out.println(customer.getClubCard().getNumberOfCoffee());
 		
 		return 0;
 	}
@@ -357,5 +376,78 @@ public class Database {
 
 		coll.insertOne(order);
 		return 0;
+	}
+	
+	/**
+	 * Processes an order, removing products from DB, applying discounts, adding beverages to ClubCards
+	 * @param order
+	 * @return String containing success/fail-message with info
+	 */
+	public String processOrder(Order order){
+		MongoCollection<Customer> customerColl = db.getCollection("customer", Customer.class);
+		List<Product> productsDB = getProducts();
+		List<Product> productsOrder = order.getProducts();
+		MongoCursor<Customer> cursor = customerColl.find().iterator();
+		Product product = null;
+		
+		for(int i=0;i<productsDB.size();i++){
+			for(int j=0;j<productsOrder.size();j++){
+				if(productsDB.get(i).getId().equals(productsOrder.get(j).getId())){
+					product = productsDB.get(i);
+					break;
+				}
+			}
+			for(int j=0;j<productsOrder.size();j++){
+				if(productsDB.get(i).getId().equals(productsOrder.get(j).getId())){
+					if(productsDB.get(i).getInStock()){
+						product.setUnits(product.getUnits()-1);
+						if(product.getUnits() < 1){
+							return product.getName() + " insufficient units in stock for given order!";
+						}
+					} else{
+						return productsOrder.get(j).getName() + " out of stock! process failed.";
+					}
+				} 
+			}
+		}
+		for(int i=0;i<productsOrder.size();i++){
+			removeUnit(productsOrder.get(i));
+		}
+		
+		try{
+			while(cursor.hasNext()){
+				Customer customer = cursor.next();
+				if(customer.getCustomerID().equals(order.getCustomer())){
+					if(order.getCashier().equals(order.getCustomer())){
+						order.setTotal((order.getTotal()) + (int)(order.getTotal()*(10.0f/100.0f)));
+					}
+					for(int i=0;i<productsOrder.size();i++){
+						if(productsOrder.get(i).getType().equals("beverage")){
+							customer.getClubCard().addCoffee();
+						}
+					}
+					System.out.println(customer.getClubCard().getNumberOfCoffee());
+					if((customer.getClubCard().getNumberOfCoffee()>0)&&((customer.getClubCard().getNumberOfCoffee()/10)>0)){
+						System.out.println(customer.getClubCard().getNumberOfCoffee()/10);
+						int freeDrinks = customer.getClubCard().getNumberOfCoffee()/10;
+						for(int i=0;i<productsOrder.size();i++){
+							if(productsOrder.get(i).getType().equals("beverage")){
+								order.setTotal(order.getTotal() - productsOrder.get(i).getPrice());
+								freeDrinks--;
+							}
+							if(freeDrinks == 0){
+								break;
+							}
+						}
+						System.out.println(customer.getClubCard().getNumberOfCoffee()%10);
+						customer.getClubCard().setNumberOfCoffee(customer.getClubCard().getNumberOfCoffee()%10);
+					}
+				}
+			}
+		}finally{
+			cursor.close();
+		}
+		order.setProcessed(true);
+		return "Process successful!";
 	}
 }

@@ -3,10 +3,14 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 public class Employer {
+	private ObjectId id;
 	private String name;
 	private String employerID;
 	private String persNbr;
+	private String country = "n/a";
 	private List<Comment> comments;
 	
 	public Employer(String name, String employerID, String persNbr) {
@@ -41,5 +45,21 @@ public class Employer {
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }
