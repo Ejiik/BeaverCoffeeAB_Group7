@@ -42,6 +42,9 @@ public class Database {
 		
 	}
 	
+	/**
+	 * Resets the DB, deleting all entries
+	 */
 	public void resetDB(){
 		db.drop();
 		db = mongoClient.getDatabase("beaverCoffee");
