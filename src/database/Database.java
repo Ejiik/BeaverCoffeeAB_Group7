@@ -311,6 +311,11 @@ public class Database {
 		return 0;
 	}
 	
+	/**
+	 * inserts the given Customer into the database.
+	 * @param customer
+	 * @return 0: customer inserted, 1: customer already exist and was updated
+	 */
 	public int insertCustomer(Customer customer){
 		MongoCollection<Customer> coll = db.getCollection("customer", Customer.class);
 		MongoCursor<Customer> cursor = coll.find().iterator();
