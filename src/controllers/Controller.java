@@ -548,7 +548,7 @@ public class Controller implements Initializable {
 	    		Product clickedProd = (Product)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedProd.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateProductWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditProductWindow.fxml"));
 				loader.setController(new UpdateController(clickedProd));
 				root = loader.load();
 	    		
@@ -557,7 +557,7 @@ public class Controller implements Initializable {
 	    		Employer clickedEmplr = (Employer)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedEmplr.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployerWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditEmployerWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedEmplr));
 	    		root = loader.load();
 	    	}
@@ -565,7 +565,7 @@ public class Controller implements Initializable {
 	    		Employee clickedEmpl = (Employee)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedEmpl.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateEmployeeWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditEmployeeWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedEmpl));
 	    		root = loader.load();
 	    		
@@ -573,7 +573,7 @@ public class Controller implements Initializable {
 	    		Order clickedOrder = (Order)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedOrder.getCashier());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateOrderWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditOrderWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedOrder));
 	    		root = loader.load();
 	    	}
@@ -581,7 +581,7 @@ public class Controller implements Initializable {
 	    		Customer clickedCust = (Customer)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedCust.getName());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCustomerWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditCustomerWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedCust));
 	    		root = loader.load();
 	    	}
@@ -589,7 +589,7 @@ public class Controller implements Initializable {
 	    		Comment clickedComment = (Comment)menu_table_view.getSelectionModel().getSelectedItem();
 	    		System.out.println(clickedComment.getComment());
 	    		
-	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/UpdateCommentWindow.fxml"));
+	    		loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/EditCommentWindow.fxml"));
 	    		loader.setController(new UpdateController(clickedComment));
 	    		root = loader.load();
 	    	}

@@ -228,6 +228,30 @@ public class UpdateController implements Initializable{
 		((Stage)update_comment_employer.getScene().getWindow()).close();
 	}
 	
+	public void DeleteComment() {
+		System.out.println("Delete Comment");
+	}
+	
+	public void DeleteCustomer() {
+		System.out.println("Delete Customer");
+	}
+	
+	public void DeleteEmployee() {
+		System.out.println("Delete Employee");
+	}
+	
+	public void DeleteEmployer() {
+		System.out.println("Delete Employer");
+	}
+	
+	public void DeleteOrder() {
+		System.out.println("Delete Order");
+	}
+	
+	public void DeleteProduct() {
+		System.out.println("Delete Product");
+	}
+	
 	
 	public void addProduct(){
 		
@@ -257,7 +281,7 @@ public class UpdateController implements Initializable{
 		String fxmlFile = path.getPath().substring(path.getPath().lastIndexOf('/')+1);
 		System.out.println(fxmlFile);
 		
-		if(fxmlFile.equals("UpdateProductWindow.fxml")) {	
+		if(fxmlFile.equals("EditProductWindow.fxml")) {	
 			update_product_price.textProperty().addListener(new ChangeListener<String>() {
 	            @Override
 	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -275,7 +299,7 @@ public class UpdateController implements Initializable{
 				update_list_product_ingredients.appendText(i+"\n");
 			}
 		}
-		else if(fxmlFile.equals("UpdateOrderWindow.fxml")) {
+		else if(fxmlFile.equals("EditOrderWindow.fxml")) {
 			System.out.println(fxmlFile);
 			List<Customer> customers = db.getCustomers();
 			List<String> customerNames = new ArrayList<String>();
@@ -306,14 +330,14 @@ public class UpdateController implements Initializable{
 				update_list_order_products.appendText(order.getProducts().get(i).getName() + "\n");
 			}
 		}
-		else if(fxmlFile.equals("UpdateEmployerWindow.fxml")) {
+		else if(fxmlFile.equals("EditEmployerWindow.fxml")) {
 			System.out.println(employer.getId());
 			update_employer_name.setText(employer.getName());
 			update_employer_country.setText(employer.getCountry());
 			update_employer_birthdate.setText(employer.getPersNbr());
 			
 		}
-		else if(fxmlFile.equals("UpdateEmployeeWindow.fxml")) {
+		else if(fxmlFile.equals("EditEmployeeWindow.fxml")) {
 			System.out.println(employee.getId());
 			update_employee_name.setText(employee.getName());
 			update_employee_position.setText(employee.getPosition());
@@ -322,7 +346,7 @@ public class UpdateController implements Initializable{
 			update_employee_country.setText(employee.getCountry());		
 			update_employee_birthdate.setText(employee.getPersNbr());
 		}
-		else if(fxmlFile.equals("UpdateCustomerWindow.fxml")) {
+		else if(fxmlFile.equals("EditCustomerWindow.fxml")) {
 			System.out.println(customer.getId());
 			update_customer_name.setText(customer.getName());
 			update_customer_occupation.setText(customer.getOccupation());
@@ -331,7 +355,7 @@ public class UpdateController implements Initializable{
 			update_customer_country.setText(customer.getCountry());
 			update_customer_birthdate.setText(customer.getPersNbr());
 		}
-		else if(fxmlFile.equals("UpdateCommentWindow.fxml")) {
+		else if(fxmlFile.equals("EditCommentWindow.fxml")) {
 			System.out.println(comment.getId());
 			List<Employer> employers = db.getEmployers();
 			List<String> emplrNames = new ArrayList<String>();
