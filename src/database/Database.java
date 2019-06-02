@@ -430,6 +430,7 @@ public class Database {
 		MongoCursor<Customer> cursor = customerColl.find().iterator();
 		Product product = null;
 		Customer customer = null;
+		String originalPrice;
 		
 		for(int i=0;i<productsDB.size();i++){
 			for(int j=0;j<productsOrder.size();j++){
@@ -493,6 +494,6 @@ public class Database {
 		}
 		order.setProcessed(true);
 		updateOrder(order);
-		return "Process successful!";
+		return "Process successful!" + "\n";
 	}
 }

@@ -33,6 +33,8 @@ public class LoginController implements Initializable{
 	private Button btnLogin;
 	
 	private String userType;
+	private String user;
+	
 	ObservableList<String> choices;
 	List<String> usernames = new ArrayList<String>();
 	
@@ -42,8 +44,14 @@ public class LoginController implements Initializable{
 	public void start(){
 		try {
 			userType = input_login_type.getSelectionModel().getSelectedItem();
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("gui/Menu.fxml"));
-			loader.setController(new Controller(userType));
+			if(userType == "Employee"){
+				user = input_login_username.getSelectionModel().getSelectedItem();
+				loader.setController(new Controller(userType, user));
+			} else{
+				loader.setController(new Controller(userType));
+			}
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();

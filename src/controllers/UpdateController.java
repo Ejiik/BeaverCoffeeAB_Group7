@@ -151,7 +151,7 @@ public class UpdateController implements Initializable{
 			String[] tempArr = price.split("\\.");
 			if(tempArr[1].length() == 1){
 				price = tempArr[0] + tempArr[1];
-				price.concat("0");
+				price = price.concat("0");
 			}else if(tempArr[1].length() >2){
 				int tempInt = Integer.parseInt(tempArr[1].substring(0, 2));
 				if(Character.getNumericValue(tempArr[1].charAt(2)) > 4){
@@ -162,11 +162,20 @@ public class UpdateController implements Initializable{
 				price = tempArr[0] + tempArr[1];
 			}
 		}else{
-			price.concat("00");
+			price = price.concat("00");
 		}
 		res = Integer.parseInt(price);
 		return res;
 	}
+	
+	public String deformatPrice(int priceIn){
+		String res = String.valueOf(priceIn);
+		String ints = res.substring(0, res.length() - 2);
+		String decimals = res.substring(res.length() - 2);
+		res = ints + "." + decimals;
+		return res;
+	}
+	
 	public String currentFormattedDate(){
 		LocalDateTime ldt = LocalDateTime.now().plusDays(1);
 		DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
@@ -391,7 +400,7 @@ public class UpdateController implements Initializable{
 			System.out.println(product.getId());
 			update_product_name.setText(product.getName());
 			update_product_type.setText(product.getType());
-			update_product_price.setText(String.valueOf(product.getPrice()));
+			update_product_price.setText(deformatPrice(product.getPrice()));
 			update_product_units.setText(String.valueOf(product.getUnits()));
 			for(String i : product.getIngredients()) {
 				update_list_product_ingredients.appendText(i+"\n");

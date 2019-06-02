@@ -139,6 +139,7 @@ public class Controller implements Initializable {
 	
 	
 	private String userType = null;
+	private String userPosition = "";
 	
 	public Controller() {
 		
@@ -146,6 +147,16 @@ public class Controller implements Initializable {
 	
 	public Controller(String userType) {
 		this.userType = userType;
+	}
+	
+	public Controller(String userType, String user) {
+		this.userType = userType;
+		List<Employee> employees = db.getEmployees();
+		for(int i = 0;i<employees.size();i++){
+			if(employees.get(i).getEmployeeID().equals(user)){
+				this.userPosition = employees.get(i).getPosition();
+			}
+		}
 	}
 	
 	public void ShowNewScene(ActionEvent event) throws IOException {
@@ -201,7 +212,7 @@ public class Controller implements Initializable {
 			String[] tempArr = price.split("\\.");
 			if(tempArr[1].length() == 1){
 				price = tempArr[0] + tempArr[1];
-				price.concat("0");
+				price = price.concat("0");
 			}else if(tempArr[1].length() >2){
 				int tempInt = Integer.parseInt(tempArr[1].substring(0, 2));
 				if(Character.getNumericValue(tempArr[1].charAt(2)) > 4){
@@ -212,7 +223,7 @@ public class Controller implements Initializable {
 				price = tempArr[0] + tempArr[1];
 			}
 		}else{
-			price.concat("00");
+			price = price.concat("00");
 		}
 		res = Integer.parseInt(price);
 		return res;
@@ -719,16 +730,27 @@ public class Controller implements Initializable {
 		if(userType != null){
 			switch(userType){
 			case("Employee"):
-			btn_show_comments.setVisible(false);
-			btn_show_employers.setVisible(false);
-			btn_add_product_window.setVisible(false);
-			btn_add_comment_window.setVisible(false);
-			btn_add_employee_window.setVisible(false);
-			btn_add_employer_window.setVisible(false);
-			btnClearDB.setVisible(false);
+				if(userPosition.equals("manager")){
+					btn_show_comments.setVisible(false);
+					btn_show_employers.setVisible(false);
+					btn_add_comment_window.setVisible(false);
+					btn_add_employer_window.setVisible(false);
+					btnClearDB.setVisible(false);
+				}else{
+					btn_show_products.setVisible(false);
+					btn_show_customers.setVisible(false);
+					btn_show_comments.setVisible(false);
+					btn_show_employees.setVisible(false);
+					btn_show_employers.setVisible(false);
+					btn_add_product_window.setVisible(false);
+					btn_add_comment_window.setVisible(false);
+					btn_add_employee_window.setVisible(false);
+					btn_add_employer_window.setVisible(false);
+					btnClearDB.setVisible(false);
+				}
 				break;
 			case("Employer"):
-				
+				btnClearDB.setVisible(false);
 				break;
 			case("Customer"):
 				btn_show_products.setVisible(false);
