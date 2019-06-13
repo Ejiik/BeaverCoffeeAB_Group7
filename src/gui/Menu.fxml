@@ -6,26 +6,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="519.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="559.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="menu_table_view" layoutX="14.0" layoutY="198.0" onMouseClicked="#clickItem" prefHeight="305.0" prefWidth="524.0" visible="false" />
-      <Button fx:id="btn_show_orders" layoutX="129.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowOrderCollection" prefHeight="25.0" prefWidth="106.0" text="Show Orders" />
-      <Button fx:id="btn_show_employees" layoutX="129.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowEmployeeCollection" text="Show Employees" />
-      <Button fx:id="btn_show_products" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowProductCollection" prefHeight="25.0" prefWidth="106.0" text="Show Products" />
-      <Button fx:id="btn_add_product_window" layoutX="316.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Product" />
-      <Button fx:id="btn_add_customer_window" layoutX="316.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Customer" />
-      <Button fx:id="btn_add_order_window" layoutX="432.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Order" />
-      <Button fx:id="btn_add_employee_window" layoutX="432.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Employee" />
+      <TableView fx:id="menu_table_view" layoutX="14.0" layoutY="198.0" onMouseClicked="#clickItem" prefHeight="305.0" prefWidth="602.0" visible="false" />
+      <Button fx:id="btn_show_orders" layoutX="161.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowOrderCollection" prefHeight="31.0" prefWidth="132.0" text="Show Orders" />
+      <Button fx:id="btn_show_employees" layoutX="161.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowEmployeeCollection" text="Show Employees" />
+      <Button fx:id="btn_show_products" layoutX="21.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowProductCollection" prefHeight="31.0" prefWidth="132.0" text="Show Products" />
+      <Button fx:id="btn_add_product_window" layoutX="360.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Product" />
+      <Button fx:id="btn_add_customer_window" layoutX="360.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Customer" />
+      <Button fx:id="btn_add_order_window" layoutX="492.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Order" />
+      <Button fx:id="btn_add_employee_window" layoutX="492.0" layoutY="79.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Employee" />
       <Text layoutX="140.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BeaverCoffee AB">
          <font>
             <Font name="Lucida Calligraphy Italic" size="27.0" />
          </font>
       </Text>
-      <Button fx:id="btn_add_comment_window" layoutX="316.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Comment" />
-      <Button fx:id="btn_add_employer_window" layoutX="432.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="25.0" prefWidth="106.0" text="Add Employer" />
-      <Button fx:id="btn_show_customers" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowCustomerCollection" prefHeight="25.0" prefWidth="106.0" text="Show Customers" />
-      <Button fx:id="btn_show_employers" layoutX="129.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowEmployerCollection" prefHeight="25.0" prefWidth="106.0" text="Show Employers" />
-      <Button fx:id="btn_show_comments" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowCommentCollection" prefHeight="25.0" prefWidth="106.0" text="Show Comments" />
-      <Button fx:id="btnClearDB" layoutX="401.0" layoutY="26.0" mnemonicParsing="false" onAction="#bortMedAllt" prefHeight="25.0" prefWidth="139.0" text="Rensa hela skiten! " />
+      <Button fx:id="btn_add_comment_window" layoutX="360.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Comment" />
+      <Button fx:id="btn_add_employer_window" layoutX="492.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowNewScene" prefHeight="31.0" prefWidth="125.0" text="Add Employer" />
+      <Button fx:id="btn_show_customers" layoutX="21.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowCustomerCollection" prefHeight="31.0" prefWidth="132.0" text="Show Customers" />
+      <Button fx:id="btn_show_employers" layoutX="161.0" layoutY="113.0" mnemonicParsing="false" onAction="#ShowEmployerCollection" prefHeight="31.0" prefWidth="132.0" text="Show Employers" />
+      <Button fx:id="btn_show_comments" layoutX="21.0" layoutY="146.0" mnemonicParsing="false" onAction="#ShowCommentCollection" prefHeight="31.0" prefWidth="132.0" text="Show Comments" />
+      <Button fx:id="btnClearDB" layoutX="462.0" layoutY="26.0" mnemonicParsing="false" onAction="#bortMedAllt" prefHeight="31.0" prefWidth="155.0" text="Rensa hela skiten! " />
    </children>
 </AnchorPane>
