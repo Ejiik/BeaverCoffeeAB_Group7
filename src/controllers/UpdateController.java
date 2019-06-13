@@ -220,6 +220,7 @@ public class UpdateController implements Initializable{
 			order.setCustomer(update_order_customerID.getSelectionModel().getSelectedItem());
 		}
 		order.setProducts(products);
+		order.setProcessed(false);
 		db.updateOrder(order);
 		((Stage)update_order_cashierID.getScene().getWindow()).close();
 	}
@@ -425,6 +426,7 @@ public class UpdateController implements Initializable{
 			}
 			for(int i=0;i<employees.size();i++){
 				emplNames.add(employees.get(i).getEmployeeID());
+				customerNames.add(employees.get(i).getEmployeeID());
 			}
 			update_order_productList.setItems(FXCollections.observableArrayList(prodNames));
 			update_order_customerID.setItems(FXCollections.observableArrayList(customerNames));

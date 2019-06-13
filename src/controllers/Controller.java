@@ -785,6 +785,7 @@ public class Controller implements Initializable {
 			}
 			for(int i=0;i<employees.size();i++){
 				emplNames.add(employees.get(i).getEmployeeID());
+				customerNames.add(employees.get(i).getEmployeeID());
 			}
 			
 			input_order_customerID.setItems(FXCollections.observableArrayList(customerNames));

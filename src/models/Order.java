@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import javafx.beans.property.ListProperty;
 
 public class Order {
+	private ObjectId id;
 	private String orderID;
 	private String date;
 	private int total;
@@ -83,6 +86,14 @@ public class Order {
 
 	public void setProductNames(List<String> productNames) {
 		this.productNames = productNames;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
 	}
 	
 }

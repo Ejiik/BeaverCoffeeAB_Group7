@@ -271,7 +271,7 @@ public class Database {
 	}
 	public void updateOrder(Order order){
 		MongoCollection<Order> coll = db.getCollection("order", Order.class);
-		coll.updateOne(eq("orderID", order.getOrderID()), combine(set("total", order.getTotal()), set("customer", order.getCustomer()), set("cashier", order.getCashier()), set("products", order.getProducts()), set("processed", order.getProcessed())));
+		coll.updateOne(eq("_id", order.getId()), combine(set("total", order.getTotal()), set("customer", order.getCustomer()), set("cashier", order.getCashier()), set("products", order.getProducts()), set("processed", order.getProcessed())));
 	}
 	public void updateComment(Comment comment){
 		System.out.println(comment.getId());
@@ -418,6 +418,14 @@ public class Database {
 		return 0;
 	}
 	
+	public String deformatPrice(int priceIn){
+		String res = String.valueOf(priceIn);
+		String ints = res.substring(0, res.length() - 2);
+		String decimals = res.substring(res.length() - 2);
+		res = ints + "." + decimals;
+		return res;
+	}
+	
 	/**
 	 * Processes an order, removing products from DB, applying discounts, adding beverages to ClubCards
 	 * @param order
@@ -428,9 +436,12 @@ public class Database {
 		List<Product> productsDB = getProducts();
 		List<Product> productsOrder = order.getProducts();
 		MongoCursor<Customer> cursor = customerColl.find().iterator();
+		boolean emplCustomer = false;
+		int freeDrinks = 0;
 		Product product = null;
 		Customer customer = null;
 		String originalPrice;
+		String resPrompt;
 		
 		for(int i=0;i<productsDB.size();i++){
 			for(int j=0;j<productsOrder.size();j++){
@@ -462,6 +473,7 @@ public class Database {
 				if(customer.getCustomerID().equals(order.getCustomer())){
 					if(order.getCashier().equals(order.getCustomer())){
 						order.setTotal((order.getTotal()) + (int)(order.getTotal()*(10.0f/100.0f)));
+						emplCustomer = true;
 					}
 					for(int i=0;i<productsOrder.size();i++){
 						if(productsOrder.get(i).getType().equals("beverage")){
@@ -471,13 +483,14 @@ public class Database {
 					System.out.println(customer.getClubCard().getNumberOfCoffee());
 					if((customer.getClubCard().getNumberOfCoffee()>0)&&((customer.getClubCard().getNumberOfCoffee()/10)>0)){
 						System.out.println(customer.getClubCard().getNumberOfCoffee()/10);
-						int freeDrinks = customer.getClubCard().getNumberOfCoffee()/10;
+						freeDrinks = customer.getClubCard().getNumberOfCoffee()/10;
+						int counter = freeDrinks;
 						for(int i=0;i<productsOrder.size();i++){
 							if(productsOrder.get(i).getType().equals("beverage")){
 								order.setTotal(order.getTotal() - productsOrder.get(i).getPrice());
-								freeDrinks--;
+								counter--;
 							}
-							if(freeDrinks == 0){
+							if(counter == 0){
 								break;
 							}
 						}
@@ -494,6 +507,9 @@ public class Database {
 		}
 		order.setProcessed(true);
 		updateOrder(order);
-		return "Process successful!" + "\n";
+		
+		
+		
+		return "Process successful!" + "\nPrice: " + deformatPrice(order.getTotal());
 	}
 }
